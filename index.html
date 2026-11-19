@@ -1,0 +1,4445 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alibaba Merchant Store | Online Marketplace</title>
+<style>
+:root{--orange:#ff6a00;--dark:#242424;--light:#f5f5f5;--border:#eaeaea}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--light);color:#222}
+button,input,select{font:inherit}
+button,a{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.container{width:min(1240px,94%);margin:auto}
+.topbar{background:#333;color:white;padding:9px 0;font-size:12px}
+.topbar .container{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+header{background:white;position:sticky;top:0;z-index:30;border-bottom:1px solid var(--border)}
+.header{min-height:78px;display:flex;align-items:center;gap:24px}
+.logo{display:flex;align-items:center;gap:10px;min-width:230px}
+.logo-icon{background:var(--orange);color:white;width:45px;height:45px;border-radius:12px;display:grid;place-items:center;font-weight:900;font-size:28px}
+.logo-name{font-size:20px;font-weight:800;letter-spacing:-.7px}
+.logo-name span{color:var(--orange)}
+.logo small{display:block;font-size:9px;letter-spacing:1.5px;color:#888;margin-top:4px}
+.search{height:44px;display:flex;border:2px solid var(--orange);border-radius:6px;overflow:hidden;flex:1}
+.search input{border:0;outline:0;padding:0 14px;min-width:0;flex:1}
+.search button,.primary{background:var(--orange);color:white;border:0;font-weight:700;padding:0 22px}
+.search button:hover,.primary:hover{background:#e65d00}
+.header-actions{display:flex;gap:18px}
+.header-actions button{background:none;border:0;font-size:12px;white-space:nowrap}
+.header-actions b{font-size:21px;display:block}
+.count{background:var(--orange);color:white;border-radius:20px;padding:2px 6px;font-size:10px}
+nav{border-top:1px solid #eee;background:white}
+.nav{display:flex;gap:28px;overflow:auto;white-space:nowrap;padding:14px 0;font-size:13px;font-weight:600}
+.nav a:first-child{color:var(--orange)}
+.hero{margin-top:20px;min-height:330px;border-radius:12px;overflow:hidden;display:flex;align-items:center;color:white;background:linear-gradient(90deg,rgba(20,20,20,.92),rgba(20,20,20,.4)),url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=85') center/cover}
+.hero-content{padding:42px;max-width:650px}
+.eyebrow{color:#ffb47f;font-size:12px;font-weight:bold;letter-spacing:2px;margin-bottom:16px}
+.hero h1{font-size:clamp(35px,5vw,58px);line-height:1.07;letter-spacing:-2px;margin-bottom:15px}
+.hero h1 span{color:#ff914d}
+.hero p{font-size:14px;line-height:1.7;color:#eee;margin-bottom:22px;max-width:450px}
+.primary{display:inline-block;padding:13px 22px;border-radius:5px;font-size:12px}
+.section{margin-top:27px}
+.heading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:16px}
+.heading h2{font-size:22px}
+.heading p{font-size:12px;color:#888;margin-top:5px}
+.flash-section{background:white;border-radius:10px;padding:20px;border-top:4px solid var(--orange)}
+.flash-title{display:flex;align-items:center;gap:10px}
+.flash-title h2{font-size:22px}
+.flash-label{background:#ffede2;color:#e65d00;font-size:11px;font-weight:bold;padding:6px 9px;border-radius:4px}
+.timer{background:#272727;color:white;padding:7px 10px;border-radius:5px;font-size:12px;font-weight:bold}
+.flash-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.flash-card{border:1px solid #eee;border-radius:7px;overflow:hidden;position:relative}
+.flash-card img{width:100%;height:155px;object-fit:cover;display:block;background:#f4f4f4}
+.flash-card .info{padding:12px}
+.flash-card strong{font-size:13px;display:block;line-height:1.4;height:36px;overflow:hidden}
+.flash-price{color:#e65d00;font-weight:800;font-size:17px;margin-top:8px}
+.old-price{color:#999;text-decoration:line-through;font-size:11px;margin-left:5px}
+.discount{position:absolute;top:9px;left:9px;background:#e53935;color:white;padding:5px 7px;border-radius:3px;font-size:10px;font-weight:bold}
+.flash-card a{display:block;color:var(--orange);font-size:11px;font-weight:bold;margin-top:10px}
+.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.benefit{background:white;padding:17px;border:1px solid var(--border);border-radius:8px;display:flex;gap:12px;align-items:center}
+.benefit i{font-style:normal;font-size:24px}
+.benefit strong{display:block;font-size:12px}
+.benefit small{display:block;color:#888;font-size:10px;margin-top:4px}
+.categories{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.category{background:white;border:1px solid var(--border);border-radius:8px;text-align:center;padding:17px 7px;transition:.2s}
+.category:hover,.category.active{border-color:var(--orange);background:#fff2e9}
+.category span{font-size:27px;display:block;margin-bottom:8px}
+.category strong{font-size:11px}
+.products{background:white;padding:21px;border-radius:10px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.toolbar small{color:#888}
+.toolbar select{padding:9px;border:1px solid #ddd;border-radius:5px;background:white}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}/* PRODUCT GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:18px;
+    align-items:stretch;
+}
+
+.card{
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    border:1px solid #eaeaea;
+    border-radius:10px;
+    overflow:hidden;
+    background:white;
+    transition:all .25s ease;
+    min-width:0;
+}
+
+.card:hover{
+    border-color:#ff6a00;
+    box-shadow:0 8px 22px rgba(0,0,0,.09);
+    transform:translateY(-4px);
+}
+
+.card-image{
+    height:190px;
+    position:relative;
+    background:#f5f5f5;
+    overflow:hidden;
+}
+
+.card-image img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+    padding:10px;
+}
+
+.card-info{
+    padding:14px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+}
+
+.card-name{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    line-height:1.5;
+    height:40px;
+    overflow:hidden;
+}
+
+.rating{
+    margin:8px 0;
+}
+
+.price{
+    font-size:18px;
+    font-weight:800;
+    color:#e65d00;
+}
+
+.meta{
+    margin:8px 0 12px;
+    color:#888;
+    font-size:11px;
+}
+
+.card-buttons{
+    display:flex;
+    gap:7px;
+    margin-top:auto;
+}
+
+.add{
+    flex:1;
+    padding:10px 4px;
+    font-size:11px;
+    border:1px solid #ff6a00;
+    background:white;
+    color:#ff6a00;
+    border-radius:5px;
+    font-weight:bold;
+}
+
+.view{
+    padding:10px;
+    border:0;
+    background:#f2f2f2;
+    border-radius:5px;
+}.card{border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:.2s;background:white;min-width:0}
+.card:hover{border-color:#ffb17f;box-shadow:0 5px 18px #0000000c;transform:translateY(-3px)}
+.card-image{height:165px;position:relative;background:#f5f5f5;overflow:hidden}
+.card-image img{width:100%;height:100%;object-fit:cover;display:block;transition:.3s}
+.card:hover img{transform:scale(1.05)}
+.tag{position:absolute;top:8px;left:8px;background:var(--orange);color:white;padding:5px 7px;border-radius:3px;font-size:9px;font-weight:bold}
+.card-info{padding:11px}
+.card-name{display:block;font-size:12px;font-weight:600;line-height:1.5;height:36px;overflow:hidden}
+.rating{color:#f5a623;font-size:13px;letter-spacing:1px;margin:6px 0}
+.rating-count{font-size:10px;color:#999;letter-spacing:0}
+.price{color:#e65d00;font-size:16px;font-weight:800}
+.meta{font-size:10px;color:#888;margin:7px 0 10px}
+.card-buttons{display:flex;gap:6px}
+.add{flex:1;padding:9px 3px;border:1px solid var(--orange);background:white;color:var(--orange);border-radius:4px;font-size:10px;font-weight:bold}
+.add:hover{background:var(--orange);color:white}
+.view{padding:9px 8px;border:0;background:#f2f2f2;border-radius:4px;font-size:10px}
+.promo{background:#fff0e5;border:1px solid #ffe0c9;border-radius:9px;padding:25px;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.promo h3{font-size:20px;margin-bottom:7px}
+.promo p{color:#777;font-size:12px}
+footer{background:#242424;color:white;margin-top:40px;padding:40px 0 20px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px;padding-bottom:30px}
+.footer-grid p,.footer-grid a{color:#aaa;font-size:12px;line-height:1.8}
+.footer-grid h4{font-size:13px;margin-bottom:12px}
+.footer-grid a{display:block;margin:8px 0}
+.footer-bottom{border-top:1px solid #444;padding-top:18px;color:#aaa;font-size:11px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:90}
+.overlay.show{display:block}
+.drawer{position:fixed;z-index:100;right:-450px;top:0;width:min(420px,100%);height:100%;background:white;display:flex;flex-direction:column;transition:.3s}
+.drawer.open{right:0}
+.drawer-head{padding:19px;border-bottom:1px solid #eee;display:flex;justify-content:space-between}
+.drawer-head button,.modal-close{border:0;background:none;font-size:25px}
+.cart-items{flex:1;overflow:auto;padding:15px 20px}
+.cart-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #eee}
+.cart-item img{width:70px;height:70px;object-fit:cover;border-radius:5px}
+.cart-item strong{font-size:12px;display:block}
+.cart-item small{color:var(--orange);display:block;margin:5px 0}
+.qty{display:flex;gap:9px;align-items:center;margin-top:5px;font-size:12px}
+.qty button{width:24px;height:24px;background:white;border:1px solid #ddd;border-radius:4px}
+.qty .remove{border:0;color:#c33;width:auto;padding:0 5px}
+.cart-bottom{border-top:1px solid #eee;padding:18px}
+.total{display:flex;justify-content:space-between;font-weight:bold;font-size:17px;margin-bottom:15px}
+.cart-bottom .primary{width:100%;text-align:center}
+.empty{text-align:center;color:#888;padding:50px 10px;font-size:13px}
+.modal-wrap{display:none;position:fixed;inset:0;background:#0009;z-index:120;place-items:center;padding:15px}
+.modal-wrap.show{display:grid}
+.modal{width:min(720px,100%);background:white;border-radius:10px;overflow:hidden;position:relative;display:grid;grid-template-columns:1fr 1fr}
+.modal img{width:100%;height:100%;min-height:300px;object-fit:cover;background:#f5f5f5}
+.modal-info{padding:30px}
+.modal-info h2{font-size:21px;line-height:1.4;margin:10px 0}
+.modal-info p{color:#777;font-size:13px;line-height:1.7;margin:12px 0}
+.modal-close{position:absolute;right:12px;top:8px;z-index:2}
+.toast{position:fixed;z-index:150;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#222;color:white;padding:13px 19px;border-radius:6px;font-size:12px;transition:.25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:950px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.benefits{grid-template-columns:repeat(2,1fr)}.categories{grid-template-columns:repeat(3,1fr)}.header{flex-wrap:wrap;padding:12px 0}.search{order:3;flex-basis:100%}.logo{min-width:0}.flash-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.header-actions{margin-left:auto}.header-actions button{font-size:10px}.logo-name{font-size:16px}.logo-icon{width:38px;height:38px}.hero-content{padding:25px}.hero h1{font-size:39px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card-image{height:140px}.products{padding:12px}.benefits{gap:8px}.benefit{padding:11px 7px}.benefit strong{font-size:10px}.benefit small{font-size:9px}.flash-section{padding:13px}.flash-grid{gap:8px}.flash-card img{height:120px}.flash-title h2{font-size:17px}.categories{gap:7px}.category{padding:13px 4px}.footer-grid{grid-template-columns:repeat(2,1fr)}.modal{grid-template-columns:1fr;max-height:90vh;overflow:auto}.modal img{height:210px;min-height:0}.modal-info{padding:20px}}
+.auth-modal {
+  width: min(440px, 95%);
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.auth-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-content .logo-icon {
+  margin: auto;
+}
+
+.auth-content h2 {
+  text-align: center;
+  font-size: 25px;
+}
+
+.auth-content p {
+  text-align: center;
+  color: #777;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.auth-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-content input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline-color: #ff6a00;
+}
+
+.auth-content form .primary,
+.auth-content > button.primary,
+#signedInPanel .primary {
+  width: 100%;
+  padding: 14px;
+  border-radius: 5px;
+}
+
+.auth-content a {
+  color: #ff6a00;
+  font-weight: bold;
+}
+
+.google-divider {
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  margin: 10px 0;
+}
+
+.google-button {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 13px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.google-button:hover {
+  background: #f7f7f7;
+}
+
+#signedInPanel {
+  text-align: center;
+}
+.customer-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  text-align: left;
+}
+
+.dashboard-heading {
+  text-align: center;
+}
+
+.dashboard-heading h2 {
+  margin: 12px 0 5px;
+  font-size: 27px;
+}
+
+.dashboard-heading p {
+  color: #777;
+  font-size: 13px;
+}
+
+.customer-profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff5ed;
+  border: 1px solid #ffe0c7;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.profile-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ff6a00;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+}
+
+.customer-profile strong {
+  font-size: 14px;
+  color: #222;
+}
+
+.customer-profile p {
+  margin: 5px 0 0;
+  font-size: 12px;
+  word-break: break-word;
+}
+
+.dashboard-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dashboard-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 9px;
+  background: white;
+}
+
+.dashboard-option > span {
+  font-size: 25px;
+}
+
+.dashboard-option strong {
+  color: #222;
+  font-size: 14px;
+}
+
+.dashboard-option p {
+  color: #888;
+  font-size: 12px;
+  margin: 5px 0 0;
+}
+
+.customer-dashboard > .primary {
+  width: 100%;
+  padding: 14px;
+  background: #ff6a00;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+/* CHECKOUT */
+.checkout-wrap{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:130;
+  background:#000a;
+  overflow-y:auto;
+  padding:20px;
+}
+.checkout-wrap.show{
+  display:block;
+}
+.checkout-box{
+  width:min(760px,100%);
+  margin:25px auto;
+  background:white;
+  border-radius:12px;
+  padding:25px;
+  position:relative;
+}
+.checkout-box h2{
+  font-size:25px;
+  margin-bottom:8px;
+}
+.checkout-subtitle{
+  color:#777;
+  font-size:13px;
+  margin-bottom:22px;
+}
+.checkout-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.checkout-field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.checkout-field.full{
+  grid-column:1/-1;
+}
+.checkout-field label{
+  font-size:12px;
+  font-weight:700;
+}
+.checkout-field input,
+.checkout-field select,
+.checkout-field textarea{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:6px;
+  outline-color:#ff6a00;
+  background:white;
+}
+.checkout-field textarea{
+  min-height:80px;
+  resize:vertical;
+}
+.shipping-notice{
+  background:#fff3e9;
+  border:1px solid #ffdfc5;
+  border-radius:8px;
+  padding:14px;
+  margin:20px 0;
+  font-size:13px;
+  line-height:1.7;
+}
+.checkout-summary{
+  border-top:1px solid #eee;
+  padding-top:16px;
+  margin-top:18px;
+}
+.checkout-summary div{
+  display:flex;
+  justify-content:space-between;
+  margin:10px 0;
+  font-size:14px;
+}
+.checkout-summary .grand-total{
+  font-size:19px;
+  font-weight:800;
+  border-top:1px solid #eee;
+  padding-top:14px;
+}
+.checkout-submit{
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:6px;
+  background:#ff6a00;
+  color:white;
+  font-weight:800;
+  margin-top:18px;
+}
+@media(max-width:600px){
+  .checkout-wrap{padding:8px}
+  .checkout-box{padding:18px;margin:10px auto}
+  .checkout-grid{grid-template-columns:1fr}
+  .checkout-field.full{grid-column:auto}
+}
+
+/* PRODUCT GRID - 20 COLUMNS */
+.grid {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    grid-auto-flow: row !important;
+    gap: 12px !important;
+    width: 100% !important;
+    align-items: stretch !important;
+}
+
+.grid > * {
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 1200px) {
+    .grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    }
+
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+    float: none !important;
+    position: relative !important;
+}
+
+.order-status-box {
+  text-align: center;
+  padding: 35px 25px;
+  max-width: 430px;
+  margin: auto;
+  border-radius: 16px;
+}
+
+.order-status-box h2 {
+  font-size: 24px;
+  margin: 18px 0 10px;
+  color: #242424;
+}
+
+.order-status-box p {
+  color: #666;
+  line-height: 1.6;
+  margin: 8px 0;
+}
+
+#orderStatusTimer {
+  font-size: 38px;
+  font-weight: 700;
+  color: #ff6a00;
+  margin-top: 18px;
+}
+
+.order-loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #eee;
+  border-top-color: #ff6a00;
+  border-radius: 50%;
+  margin: 0 auto;
+  animation: orderSpin 0.9s linear infinite;
+}
+
+@keyframes orderSpin {
+  to { transform: rotate(360deg); }
+}
+
+.order-success-icon {
+  width: 65px;
+  height: 65px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: #e8f8ee;
+  color: #159447;
+  font-size: 38px;
+  font-weight: bold;
+}
+
+#orderSuccessModal button {
+  margin-top: 22px;
+  padding: 13px 24px;
+  background: #ff6a00;
+  color: white;
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.order-status-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-status-modal.show {
+  display: flex;
+}
+
+.order-status-modal .order-status-box {
+  width: min(430px, 100%);
+  background: #fff;
+  color: #222;
+  padding: 30px 22px;
+  border-radius: 16px;
+  text-align: center;
+  margin: auto;
+}
+.logo-image {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  display: block;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.logo-image {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.auth-logo {
+  width: 100px;
+  height: 75px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 15px;
+}
+
+.dashboard-logo {
+  width: 90px;
+  height: 65px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 12px;
+}
+.order-card {
+  background: #f7f7f7;
+  padding: 16px;
+  margin-top: 12px;
+  border-radius: 10px;
+  border: 1px solid #e5e5e5;
+  color: #222;
+}
+
+.order-card p {
+  margin-top: 8px;
+  font-size: 14px;
+}
+.delivery-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.delivery-form label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.delivery-form input,
+.delivery-form textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.delivery-form textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+
+.delivery-form button {
+  margin-top: 10px;
+}
+
+/* PRODUCT GRID - 20 COLUMNS */
+#products .grid,
+.grid {
+    display: grid !important;
+   grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    grid-auto-flow: row !important;
+    gap: 12px !important;
+    width: 100% !important;
+    align-items: stretch !important;
+}
+
+.grid > * {
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 1200px) {
+    #products .grid,
+    .grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 600px) {
+    #products .grid,
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 9px !important;
+    }
+}
+/* FORCE PRODUCT GRID LAYOUT */
+#productGrid {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    width: 100% !important;
+    align-items: stretch !important;
+}
+
+#productGrid > * {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 900px) {
+    #productGrid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 600px) {
+    #productGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+/* PROFESSIONAL CUSTOMER ACCOUNT DASHBOARD */
+
+#authModal .auth-modal {
+    width: min(720px, 95%);
+    padding: 32px;
+    border-radius: 18px;
+    box-shadow: 0 20px 70px rgba(0,0,0,.22);
+}
+
+#signedInPanel {
+    text-align: left;
+}
+
+.customer-dashboard {
+    gap: 22px;
+}
+
+.dashboard-heading {
+    text-align: left;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard-heading .dashboard-logo {
+    width: 65px;
+    height: 48px;
+    object-position: left;
+    margin: 0 0 12px;
+}
+
+.dashboard-heading h2 {
+    font-size: 28px;
+    margin: 0 0 6px;
+    color: #222;
+}
+
+.dashboard-heading p {
+    font-size: 13px;
+    color: #888;
+}
+
+.customer-profile {
+    background: linear-gradient(120deg,#fff3e9,#fffaf6);
+    border: 1px solid #ffe0c7;
+    padding: 20px;
+    border-radius: 13px;
+}
+
+.profile-avatar {
+    width: 55px;
+    height: 55px;
+    flex-shrink: 0;
+    font-size: 25px;
+}
+
+.customer-profile strong {
+    font-size: 16px;
+}
+
+.customer-profile p {
+    color: #777;
+}
+
+.dashboard-options {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 13px;
+}
+
+.dashboard-option {
+    min-height: 105px;
+    padding: 19px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .2s ease;
+    position: relative;
+}
+
+.dashboard-option:hover {
+    border-color: #ff6a00;
+    background: #fff8f3;
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(0,0,0,.05);
+}
+
+.dashboard-option > span:first-child {
+    font-size: 26px;
+}
+
+.dashboard-option > div {
+    flex: 1;
+}
+
+.dashboard-option strong {
+    font-size: 14px;
+}
+
+.dashboard-option p {
+    line-height: 1.5;
+}
+
+.dashboard-option > span:last-child {
+    color: #ff6a00;
+    font-size: 24px;
+}
+
+#customerSectionContent {
+    padding: 20px;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 12px;
+}
+
+#customerSectionContent h3 {
+    font-size: 19px;
+    margin-bottom: 12px;
+}
+
+#signedInPanel .customer-dashboard > .primary {
+    margin-top: 5px;
+}
+
+@media(max-width:600px) {
+    #authModal .auth-modal {
+        padding: 22px 17px;
+    }
+
+    .dashboard-options {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-option {
+        min-height: 85px;
+        padding: 15px;
+    }
+
+    .dashboard-heading h2 {
+        font-size: 24px;
+    }
+}
+/* ALIBABA PROFESSIONAL CUSTOMER PORTAL */
+
+#authModal .auth-modal {
+    width: min(960px, 96%);
+    padding: 35px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 15px 60px rgba(0,0,0,.15);
+}
+
+#signedInPanel {
+    text-align: left;
+}
+
+.customer-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    text-align: left;
+}
+
+.dashboard-heading {
+    text-align: left;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard-heading .dashboard-logo {
+    width: 65px;
+    height: 48px;
+    object-position: left;
+    object-fit: contain;
+    margin: 0 0 12px;
+}
+
+.dashboard-heading h2 {
+    font-size: 29px;
+    color: #222;
+    margin: 0 0 7px;
+}
+
+.dashboard-heading p {
+    color: #888;
+    font-size: 14px;
+}
+
+.customer-profile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px;
+    background: #fff8f2;
+    border: 1px solid #ffe3ce;
+    border-radius: 12px;
+}
+
+.profile-avatar {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #ff6a00;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+}
+
+.customer-profile strong {
+    font-size: 16px;
+    color: #222;
+}
+
+.customer-profile p {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #777;
+    word-break: break-word;
+}
+
+/* THREE-COLUMN DASHBOARD NAVIGATION */
+
+.dashboard-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.dashboard-option {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-height: 115px;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.dashboard-option:hover {
+    border-color: #ff6a00;
+    background: #fff9f5;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0,0,0,.06);
+}
+
+.dashboard-option > span:first-child {
+    font-size: 27px;
+}
+
+.dashboard-option > div {
+    flex: 1;
+}
+
+.dashboard-option strong {
+    display: block;
+    font-size: 14px;
+    color: #222;
+}
+
+.dashboard-option p {
+    margin-top: 7px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #888;
+}
+
+.dashboard-option > span:last-child {
+    color: #ff6a00;
+    font-size: 23px;
+}
+
+/* CUSTOMER CONTENT AREA */
+
+#customerSectionContent {
+    padding: 25px;
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    margin-top: 0 !important;
+}
+
+#customerSectionContent h3 {
+    font-size: 20px;
+    color: #222;
+    margin-bottom: 18px;
+}
+
+.order-card {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 10px;
+}
+
+/* SIGN OUT */
+
+.customer-dashboard > .primary {
+    width: auto;
+    min-width: 150px;
+    align-self: flex-end;
+    padding: 13px 25px;
+    background: #ff6a00;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.customer-dashboard > .primary:hover {
+    background: #e65f00;
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media(max-width:700px) {
+    #authModal .auth-modal {
+        padding: 22px 16px;
+    }
+
+    .dashboard-options {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .dashboard-option {
+        min-height: 85px;
+        padding: 15px;
+    }
+
+    .dashboard-heading h2 {
+        font-size: 24px;
+    }
+
+    #customerSectionContent {
+        padding: 16px;
+    }
+}
+
+/* PROFESSIONAL CUSTOMER LOGIN MODAL */
+#authModal .auth-modal {
+    width: min(460px, calc(100vw - 32px)) !important;
+    max-width: 460px !important;
+    padding: 35px !important;
+    box-sizing: border-box;
+    border-radius: 14px;
+}
+
+#authForms {
+    width: 100%;
+}
+
+#authForms form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    width: 100%;
+}
+
+#authForms input {
+    width: 100% !important;
+    height: 48px;
+    padding: 13px 14px !important;
+    box-sizing: border-box !important;
+    border: 1px solid #d7d7d7;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+#authForms form .primary {
+    width: 100% !important;
+    height: 48px;
+    margin: 0 !important;
+}
+
+#authForms form p {
+    text-align: center;
+    margin: 5px 0 0;
+    font-size: 14px;
+}
+
+#authForms .google-divider {
+    margin: 20px 0 12px;
+}
+
+#authForms .google-button {
+    width: 100%;
+    min-height: 48px;
+}
+
+@media (max-width: 500px) {
+    #authModal .auth-modal {
+        padding: 25px 20px !important;
+    }
+}
+
+/* ---------- CLEAN CUSTOMER ACCOUNT LAYOUT ---------- */
+
+#loginForm,
+#signupForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+#loginForm input,
+#signupForm input {
+  width: 100%;
+  height: 48px;
+  padding: 0 15px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  background: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .2s;
+}
+
+#loginForm input:focus,
+#signupForm input:focus {
+  border-color: #ff6a00;
+}
+
+#loginForm .primary,
+#signupForm .primary,
+#signedInPanel > .primary {
+  width: 100%;
+  min-height: 48px;
+  border: none;
+  border-radius: 7px;
+  background: #ff6a00;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#loginForm p,
+#signupForm p {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+}
+
+#loginForm a,
+#signupForm a {
+  color: #ff6a00;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+#loginMessage,
+#signupMessage {
+  margin: 0;
+  min-height: 0;
+}
+
+.google-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0;
+  color: #999;
+  font-size: 12px;
+}
+
+.google-divider::before,
+.google-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+
+.google-button {
+  width: 100%;
+  min-height: 46px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ---------- CUSTOMER DASHBOARD ---------- */
+
+#signedInPanel {
+  width: 100%;
+}
+
+.customer-dashboard {
+  width: 100%;
+}
+
+.dashboard-heading {
+  text-align: center;
+  padding: 15px 10px 25px;
+}
+
+.dashboard-logo {
+  width: 125px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.dashboard-heading h2 {
+  font-size: 23px;
+  color: #222;
+  margin-bottom: 6px;
+}
+
+.dashboard-heading p {
+  color: #777;
+  font-size: 13px;
+}
+
+.customer-profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 17px;
+  margin-bottom: 22px;
+  background: #fff7f1;
+  border: 1px solid #ffe4d1;
+  border-radius: 10px;
+}
+
+.profile-avatar {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffe3cf;
+  border-radius: 50%;
+  font-size: 23px;
+}
+
+.customer-profile strong {
+  display: block;
+  font-size: 15px;
+  color: #222;
+}
+
+.customer-profile p {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #777;
+  word-break: break-word;
+}
+
+.dashboard-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dashboard-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.dashboard-option:hover {
+  border-color: #ff6a00;
+  background: #fffaf6;
+}
+
+.dashboard-option > span:first-child {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff0e5;
+  border-radius: 8px;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.dashboard-option div {
+  flex: 1;
+}
+
+.dashboard-option strong {
+  display: block;
+  font-size: 14px;
+  color: #222;
+}
+
+.dashboard-option p {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #888;
+}
+
+.dashboard-option > span:last-child {
+  color: #999;
+  font-size: 23px;
+}
+
+#customerSectionContent {
+  width: 100%;
+  padding-top: 15px;
+}
+
+#signedInPanel > .primary {
+  margin-top: 22px;
+  background: #242424;
+}
+
+@media (max-width: 480px) {
+  .dashboard-heading h2 {
+    font-size: 21px;
+  }
+
+  .dashboard-option {
+    padding: 13px;
+  }
+
+  .customer-profile {
+    padding: 14px;
+  }
+}
+
+
+/* ==================================
+   PREMIUM CHECKOUT DESIGN
+================================== */
+
+.checkout-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow-y: auto;
+  padding: 35px 16px;
+  background: rgba(8, 8, 8, 0.78);
+  backdrop-filter: blur(7px);
+}
+
+.checkout-box {
+  position: relative;
+  width: min(1050px, 100%);
+  margin: 0 auto;
+  padding: 34px;
+  background: #f7f7f7;
+  border-radius: 18px;
+  color: #171717;
+  box-shadow: 0 25px 80px rgba(0,0,0,.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: 19px;
+  right: 22px;
+  width: 39px;
+  height: 39px;
+  border: none;
+  border-radius: 50%;
+  background: #ededed;
+  color: #222;
+  font-size: 27px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.modal-close:hover {
+  background: #ff6a00;
+  color: white;
+}
+
+.checkout-heading {
+  margin-bottom: 27px;
+  padding-right: 35px;
+}
+
+.checkout-eyebrow {
+  color: #ed6500;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.checkout-heading h2 {
+  margin: 9px 0;
+  color: #151515;
+  font-size: 29px;
+  font-weight: 800;
+}
+
+.checkout-subtitle {
+  margin: 0;
+  color: #777;
+  font-size: 14px;
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(270px, .85fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.checkout-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.checkout-card {
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #e9e9e9;
+  border-radius: 13px;
+}
+
+.checkout-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 23px;
+}
+
+.checkout-step {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 39px;
+  height: 39px;
+  border-radius: 10px;
+  background: #fff0e5;
+  color: #ed6500;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.checkout-section-heading h3 {
+  margin: 0 0 4px;
+  color: #171717;
+  font-size: 17px;
+}
+
+.checkout-section-heading p {
+  margin: 0;
+  color: #888;
+  font-size: 12px;
+}
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.checkout-field {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkout-field.full {
+  grid-column: 1 / -1;
+}
+
+.checkout-field label {
+  color: #333;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.checkout-field input,
+.checkout-field textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 45px;
+  padding: 12px 13px;
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  outline: none;
+  background: #fff;
+  color: #222;
+  font-family: inherit;
+  font-size: 13px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.checkout-field textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+
+.checkout-field input:focus,
+.checkout-field textarea:focus {
+  border-color: #f47721;
+  box-shadow: 0 0 0 3px rgba(244,119,33,.12);
+}
+
+.checkout-field input::placeholder,
+.checkout-field textarea::placeholder {
+  color: #aaa;
+}
+
+.phone-input-wrap {
+  display: flex;
+  align-items: center;
+  min-height: 45px;
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+.phone-input-wrap:focus-within {
+  border-color: #f47721;
+  box-shadow: 0 0 0 3px rgba(244,119,33,.12);
+}
+
+.phone-input-wrap span {
+  padding: 0 12px;
+  color: #e96a13;
+  font-size: 13px;
+  font-weight: 800;
+  border-right: 1px solid #eee;
+}
+
+.phone-input-wrap input {
+  border: none;
+  box-shadow: none !important;
+  border-radius: 0;
+}
+
+.payment-section {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.payment-section .checkout-section-heading {
+  margin-bottom: 10px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px;
+  border: 1px solid #e8e8e8;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.payment-option:has(input:checked) {
+  border-color: #f47721;
+  background: #fff8f2;
+}
+
+.payment-option input {
+  accent-color: #ed6500;
+  width: 17px;
+  height: 17px;
+}
+
+.payment-method-name {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.payment-method-name strong {
+  color: #222;
+  font-size: 13px;
+}
+
+.payment-method-name small {
+  color: #888;
+  font-size: 11px;
+}
+
+.payment-status {
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.payment-status.available {
+  background: #e7f7ec;
+  color: #218447;
+}
+
+.payment-status.unavailable {
+  background: #f1f1f1;
+  color: #888;
+}
+
+.payment-option:has(input:disabled) {
+  cursor: not-allowed;
+  opacity: .65;
+}
+
+.mpesa-details {
+  margin-top: 9px;
+  padding: 15px;
+  background: #fff8f2;
+  border: 1px solid #ffdfc7;
+  border-radius: 9px;
+}
+
+.checkout-sidebar {
+  position: sticky;
+  top: 15px;
+}
+
+.order-summary-card {
+  padding: 22px;
+  border-top: 4px solid #f47721;
+}
+
+.shipping-notice {
+  margin: 5px 0 20px;
+  padding: 13px;
+  border-radius: 8px;
+  background: #fff7ef;
+  color: #80512d;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.checkout-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.checkout-summary > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.checkout-summary span {
+  color: #777;
+  font-size: 12px;
+}
+
+.checkout-summary strong {
+  color: #222;
+  font-size: 13px;
+  text-align: right;
+}
+
+.checkout-summary .grand-total {
+  margin-top: 4px;
+  padding-top: 17px;
+  border-top: 1px solid #e8e8e8;
+}
+
+.checkout-summary .grand-total span {
+  color: #171717;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.checkout-summary .grand-total strong {
+  color: #ed6500;
+  font-size: 23px;
+  font-weight: 900;
+}
+
+.checkout-submit {
+  width: 100%;
+  min-height: 51px;
+  margin-top: 23px;
+  border: none;
+  border-radius: 8px;
+  background: #f47721;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .5px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.checkout-submit:hover {
+  background: #d95700;
+  transform: translateY(-1px);
+}
+
+.checkout-submit:disabled {
+  opacity: .65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.checkout-security {
+  margin-top: 15px;
+  color: #888;
+  font-size: 11px;
+  text-align: center;
+}
+
+.checkout-security span {
+  color: #218447;
+  font-weight: 900;
+  margin-right: 5px;
+}
+
+/* MOBILE CHECKOUT */
+
+@media (max-width: 760px) {
+  .checkout-wrap {
+    padding: 12px 8px;
+  }
+
+  .checkout-box {
+    padding: 23px 14px;
+    border-radius: 13px;
+  }
+
+  .checkout-heading h2 {
+    font-size: 23px;
+  }
+
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-field.full {
+    grid-column: auto;
+  }
+
+  .checkout-card {
+    padding: 17px 13px;
+  }
+
+  .checkout-sidebar {
+    position: static;
+  }
+
+  .order-summary-card {
+    padding: 19px 15px;
+  }
+}
+
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.payment-logo {
+  width: 65px;
+  height: 38px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
+.bank-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bank-logo svg {
+  width: 42px;
+  height: 42px;
+}
+
+.payment-method-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.payment-method-name strong,
+.payment-method-name small {
+  display: block;
+}
+
+
+</style>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<style>
+  .shipment-map {
+    width: 100%;
+    height: 280px;
+    border-radius: 12px;
+    margin: 15px 0;
+    z-index: 1;
+  }
+
+  .tracking-info {
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+  
+  .tracking-steps {
+  margin-top: 12px;
+}
+
+.tracking-step {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  border-left: 4px solid #bbb;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.tracking-step.completed {
+  border-left-color: #16a34a;
+}
+
+.tracking-step.current {
+  border-left-color: #f59e0b;
+  background: #fffaf0;
+}
+
+.tracking-step.upcoming {
+  border-left-color: #9ca3af;
+  opacity: 0.75;
+}
+
+.tracking-step small {
+  color: #666;
+  font-size: 12px;
+}
+</style>
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  defer
+></script>
+</head>
+<body>
+
+<div class="topbar"><div class="container"><span>Welcome to Alibaba Merchant Store</span><span>Kenya | Prices in KSh</span></div></div>
+
+<header>
+  <div class="container header">
+    <a class="logo" href="#">
+      <img
+        src="https://logos-world.net/wp-content/uploads/2022/05/Alibaba-Logo.png"
+        alt="Alibaba Logo"
+        class="logo-image"
+      >
+      <div>
+        <div class="logo-name">Alibaba <span>Merchant</span></div>
+        <small>YOUR ONLINE MARKETPLACE</small>
+      </div>
+    </a>
+<div class="search">
+<input id="search" type="search" placeholder="Search for products, brands and more...">
+<button onclick="searchProducts()">SEARCH</button>
+</div>
+<div class="header-actions">
+<button onclick="accountMessage()">
+  <b>♙</b><span id="accountLabel">My Account</span>
+</button>
+
+<button onclick="openCart()"><b>🛒 <span class="count" id="cartCount">0</span></b>My Cart</button>
+</div>
+</div>
+<nav><div class="container nav">
+<a href="#">Home</a>
+<a href="#flash">Flash Sale</a>
+<a href="#categories">Categories</a>
+<a href="#products">All Products</a>
+</div></nav>
+</header>
+
+<main class="container">
+
+<section class="hero">
+<div class="hero-content">
+<div class="eyebrow">WELCOME TO YOUR MARKETPLACE</div>
+<h1>Everything you need. <span>One store.</span></h1>
+<p>Discover exciting products across electronics, fashion, home essentials and more. Explore our collection and shop with confidence.</p>
+<a href="#products" class="primary">EXPLORE PRODUCTS →</a>
+</div>
+</section>
+
+<!-- FLASH SALE APPEARS FIRST -->
+<section class="section flash-section" id="flash">
+<div class="heading">
+<div class="flash-title"><span class="flash-label">⚡ FLASH SALE</span><h2>Limited-time deals</h2></div>
+<div class="timer" id="timer">00:00:00</div>
+</div>
+<p style="color:#888;font-size:12px;margin:-5px 0 16px">Special sample discounts. Product availability and prices will be configured by the store administrator.</p>
+<div class="flash-grid" id="flashGrid"></div>
+</section>
+
+<section class="section benefits">
+<div class="benefit"><i>🚚</i><div><strong>Convenient Shopping</strong><small>Shop from anywhere</small></div></div>
+<div class="benefit"><i>🔒</i><div><strong>Customer Accounts</strong><small>Personal shopping space</small></div></div>
+<div class="benefit"><i>💬</i><div><strong>Customer Support</strong><small>We're here to help</small></div></div>
+<div class="benefit"><i>🛍️</i><div><strong>Great Selection</strong><small>Products for everyday life</small></div></div>
+</section>
+
+<section class="section" id="categories">
+<div class="heading"><div><h2>Shop by Category</h2><p>Find exactly what you're looking for.</p></div></div>
+<div class="categories" id="categoryGrid">
+    <button class="category active" data-cat="All">
+        <span>🛍️</span>
+        <strong>All Products</strong>
+    </button>
+</div>
+</section>
+
+<section class="section products" id="products">
+<div class="heading"><div><h2>Explore All Products</h2><p>Browse our growing collection of products.</p></div></div>
+<div class="toolbar">
+<small id="resultCount">Showing 100 products</small>
+<select id="sort" onchange="renderProducts()">
+<option value="recommended">Sort: Recommended</option>
+<option value="low">Price: Low to High</option>
+<option value="high">Price: High to Low</option>
+<option value="rating">Highest Rated</option>
+</select>
+</div>
+<div class="grid" id="productGrid"></div>
+</section>
+
+<section class="section promo">
+<div><h3>Discover your next favourite product.</h3><p>Explore the Alibaba Merchant Store collection.</p></div>
+<a href="#products" class="primary">SHOP NOW →</a>
+</section>
+</main>
+
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div>
+  <a class="logo" href="#">
+    <img
+      src="https://logos-world.net/wp-content/uploads/2022/05/Alibaba-Logo.png"
+      alt="Alibaba Logo"
+      class="logo-image"
+    >
+    <div>
+      <div class="logo-name" style="color:white">
+        Alibaba <span>Merchant</span>
+      </div>
+      <small>YOUR ONLINE MARKETPLACE</small>
+    </div>
+  </a>
+
+  <p style="margin-top:15px">
+    Your destination for everyday shopping. Explore a wide range of products in one convenient place.
+  </p>
+</div>
+<div><h4>Quick Links</h4><a href="#">Home</a><a href="#flash">Flash Sale</a><a href="#categories">Categories</a><a href="#products">Products</a></div>
+<div><h4>Customer Service</h4><a href="#">My Account</a><a href="#">My Orders</a><a href="#">Refund Requests</a><a href="#">Contact Us</a></div>
+<div><h4>Information</h4><a href="#">About Us</a><a href="#">Privacy Policy</a><a href="#">Terms & Conditions</a><a href="#">Delivery Information</a></div>
+</div>
+<div class="footer-bottom"><span>© <span id="year"></span> Alibaba Merchant Store. All rights reserved.</span><span>Prices displayed in Kenyan Shillings (KSh)</span></div>
+</div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<aside class="drawer" id="drawer">
+<div class="drawer-head"><h3>🛒 Your Shopping Cart</h3><button onclick="closeCart()">×</button></div>
+<div class="cart-items" id="cartItems"></div>
+<div class="cart-bottom"><div class="total"><span>Total</span><span id="cartTotal">KSh 0</span></div><button class="primary" onclick="checkout()">PROCEED TO CHECKOUT</button><p style="font-size:10px;color:#888;margin-top:10px">Checkout and payment integration will be connected in the next stage.</p></div>
+</aside>
+
+<div class="modal-wrap" id="productModal" onclick="if(event.target===this)closeProduct()">
+<div class="modal">
+<button class="modal-close" onclick="closeProduct()">×</button>
+<img id="modalImage" src="" alt="Product">
+<div class="modal-info">
+<div class="eyebrow" id="modalCategory"></div>
+<h2 id="modalName"></h2>
+<div class="rating" id="modalRating"></div>
+<div class="price" id="modalPrice"></div>
+<p id="modalDescription">Explore this product from Alibaba Merchant Store.</p>
+<button class="primary" id="modalAdd" style="padding:13px 20px;border-radius:5px">ADD TO CART</button>
+</div>
+</div>
+</div>
+<div class="modal-wrap" id="authModal"
+     onclick="if(event.target===this)closeAuth()">
+
+  <div class="auth-modal">
+    <button class="modal-close" onclick="closeAuth()">×</button>
+
+   
+      <div id="authForms">
+	  
+        
+<form id="loginForm">
+  <input id="loginEmail" type="email"
+         name="email"
+         autocomplete="username"
+         placeholder="Email address" required>
+
+  <input id="loginPassword" type="password"
+         name="password"
+         autocomplete="current-password"
+         placeholder="Password" required>
+		 
+		 <p id="loginMessage" style="color:#d93025;font-size:13px;"></p>
+
+  <button class="primary" type="submit">SIGN IN</button>
+  <p>New customer?
+    <a href="#" onclick="showSignup();return false">Create account</a>
+  </p>
+</form>
+
+
+        <form id="signupForm" style="display:none">
+          <input id="signupName" type="text"
+                 placeholder="Full name" required>
+          <input id="signupEmail" type="email"
+                 placeholder="Email address" required>
+          <input id="signupPassword" type="password"
+                 placeholder="Create password (minimum 8 characters)"
+                 minlength="8" required>
+				 <p id="signupMessage" style="color:#d93025;font-size:13px;"></p>
+          <button class="primary" type="submit">CREATE ACCOUNT</button>
+          <p>Already registered?
+            <a href="#" onclick="showLogin();return false">Sign in</a>
+          </p>
+        </form>
+
+        <div class="google-divider">OR</div>
+
+        <button class="google-button" onclick="googleSignIn()">
+          Continue with Google
+        </button>
+      </div>
+
+      <div id="signedInPanel" style="display:none">
+
+  <div class="customer-dashboard">
+
+    <div class="dashboard-heading">
+  <img
+    src="https://logos-world.net/wp-content/uploads/2022/05/Alibaba-Logo.png"
+    alt="Alibaba Logo"
+    class="dashboard-logo"
+  >
+  <h2>My Account</h2>
+  <p>Welcome to Alibaba Merchant Store</p>
+</div>
+
+    <div class="customer-profile">
+      <div class="profile-avatar">👤</div>
+      <div>
+        <strong id="customerName">Customer Account</strong>
+        <p id="signedInEmail"></p>
+      </div>
+    </div>
+
+    <div class="dashboard-options">
+
+  <div class="dashboard-option" onclick="openCustomerSection('orders')">
+    <span>📦</span>
+    <div>
+      <strong>My Orders</strong>
+      <p>View your purchases and order status</p>
+    </div>
+    <span>›</span>
+  </div>
+
+ 
+
+  <div class="dashboard-option" onclick="openCustomerSection('profile')">
+    <span>👤</span>
+    <div>
+      <strong>My Profile</strong>
+      <p>Manage your personal information</p>
+    </div>
+    <span>›</span>
+  </div>
+
+</div>
+
+    </div>
+<div id="customerSectionContent" style="display:none; margin-top:25px;">
+</div>
+    <button class="primary" onclick="signOutUser()">
+      SIGN OUT
+    </button>
+
+  </div>
+
+</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="checkout-wrap" id="checkoutModal">
+  <div class="checkout-box">
+
+    <button class="modal-close" onclick="closeCheckout()">×</button>
+
+    <div class="checkout-heading">
+      <span class="checkout-eyebrow">ALIBABA MERCHANT STORE</span>
+      <h2>Complete Your Order</h2>
+      <p class="checkout-subtitle">
+        Almost there! Enter your delivery details and confirm your order.
+      </p>
+    </div>
+
+    <form id="checkoutForm">
+
+      <div class="checkout-layout">
+
+        <div class="checkout-main">
+
+          <section class="checkout-card">
+            <div class="checkout-section-heading">
+              <span class="checkout-step">01</span>
+              <div>
+                <h3>Delivery Information</h3>
+                <p>Where should we deliver your order?</p>
+              </div>
+            </div>
+
+            <div class="checkout-grid">
+
+              <div class="checkout-field">
+                <label>Full Name *</label>
+                <input id="deliveryName" name="name" type="text"
+                  autocomplete="name" placeholder="Your full name" required>
+              </div>
+
+              <div class="checkout-field">
+                <label>Email Address *</label>
+                <input id="deliveryEmail" name="email" type="email"
+                  autocomplete="email" placeholder="Your email address" required>
+              </div>
+
+              <div class="checkout-field">
+                <label>Country *</label>
+                <input id="deliveryCountry" name="country" type="text"
+                  list="countryOptions"
+                  placeholder="Search or select your country"
+                  autocomplete="country-name" required>
+                <datalist id="countryOptions"></datalist>
+              </div>
+
+              <div class="checkout-field">
+                <label>Phone Number *</label>
+                <div class="phone-input-wrap">
+                  <span id="deliveryDialCode">+254</span>
+                  <input id="deliveryPhone" name="phone" type="tel"
+                    placeholder="Enter phone number"
+                    autocomplete="tel" required>
+                </div>
+              </div>
+
+              <div class="checkout-field">
+                <label>Town / City *</label>
+                <input id="deliveryTown" name="address-level2" type="text"
+                  autocomplete="address-level2"
+                  placeholder="Enter town or city" required>
+              </div>
+
+              <div class="checkout-field">
+                <label>Apartment / Street / Building *</label>
+                <input id="deliveryAddress" name="street-address" type="text"
+                  autocomplete="street-address"
+                  placeholder="Enter your delivery address" required>
+              </div>
+
+              <div class="checkout-field full">
+                <label>Additional Delivery Notes</label>
+                <textarea id="deliveryInstructions"
+                  placeholder="Optional directions for the delivery person"></textarea>
+              </div>
+
+            </div>
+          </section>
+
+         
+<section class="checkout-card payment-section">
+  <div class="checkout-section-heading">
+    <span class="checkout-step">02</span>
+    <div>
+      <h3>Payment Method</h3>
+      <p>Select your preferred payment method.</p>
+    </div>
+  </div>
+
+  <!-- M-PESA -->
+  <label class="payment-option">
+    <input type="radio" name="paymentMethod" value="mpesa" checked>
+
+    <img class="payment-logo"
+      src="https://commons.wikimedia.org/wiki/Special:FilePath/M-PESA_LOGO-01.svg"
+      alt="M-PESA">
+
+    <span class="payment-method-name">
+      <strong>M-PESA</strong>
+      <small>Mobile money payment</small>
+    </span>
+
+    <span class="payment-status available">Available</span>
+  </label>
+
+  <!-- VISA -->
+  <label class="payment-option">
+    <input type="radio" name="paymentMethod" value="card" disabled>
+
+    <img class="payment-logo"
+      src="https://commons.wikimedia.org/wiki/Special:FilePath/Visa_2021.svg"
+      alt="Visa">
+
+    <span class="payment-method-name">
+      <strong>Visa</strong>
+      <small>Card payment</small>
+    </span>
+
+    <span class="payment-status unavailable">Unavailable</span>
+  </label>
+
+  <!-- PAYPAL -->
+  <label class="payment-option">
+    <input type="radio" name="paymentMethod" value="paypal" disabled>
+
+    <img class="payment-logo"
+      src="https://commons.wikimedia.org/wiki/Special:FilePath/PayPal_2024.svg"
+      alt="PayPal">
+
+    <span class="payment-method-name">
+      <strong>PayPal</strong>
+      <small>Online payment</small>
+    </span>
+
+    <span class="payment-status unavailable">Unavailable</span>
+  </label>
+
+  <!-- BANK TRANSFER -->
+  <label class="payment-option">
+    <input type="radio" name="paymentMethod" value="bank" disabled>
+
+    <span class="payment-logo bank-logo">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M4 18h40L24 6 4 18Z" fill="#263b65"/>
+        <path d="M8 21h32M6 42h36M9 38h30"
+          stroke="#263b65" stroke-width="3" fill="none"/>
+        <path d="M12 22v14M20 22v14M28 22v14M36 22v14"
+          stroke="#263b65" stroke-width="3"/>
+      </svg>
+    </span>
+
+    <span class="payment-method-name">
+      <strong>Bank Transfer</strong>
+      <small>Direct bank payment</small>
+    </span>
+
+    <span class="payment-status unavailable">Unavailable</span>
+  </label>
+
+  <div id="mpesaPaymentDetails" class="checkout-field mpesa-details">
+    <label>M-PESA Number *</label>
+    <input id="mpesaPaymentPhone" type="tel"
+      placeholder="Enter M-PESA number">
+  </div>
+</section>
+
+
+        </div>
+
+        <aside class="checkout-sidebar">
+
+          <div class="checkout-card order-summary-card">
+            <div class="checkout-section-heading">
+              <span class="checkout-step">03</span>
+              <div>
+                <h3>Order Summary</h3>
+                <p>Review your payment total.</p>
+              </div>
+            </div>
+
+            <div class="shipping-notice" id="shippingNotice">
+              Shipping is calculated automatically based on your delivery country and order weight. Customer shipping is capped at 20% of the product subtotal.
+            </div>
+
+            <div class="checkout-summary">
+              <div>
+                <span>Product Subtotal</span>
+                <strong id="checkoutSubtotal">KSh 0</strong>
+              </div>
+
+              <div>
+                <span>Shipping Fee</span>
+                <strong id="checkoutShipping">KSh 0</strong>
+              </div>
+
+              <div class="grand-total">
+                <span>Total to Pay</span>
+                <strong id="checkoutTotal">KSh 0</strong>
+              </div>
+            </div>
+
+            <button class="checkout-submit" type="submit">
+              CONTINUE TO PLACE ORDER
+            </button>
+
+            <div class="checkout-security">
+              <span>✓</span>
+              Secure checkout
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
+
+    </form>
+  </div>
+</div>
+<!-- ORDER WAITING SCREEN -->
+<div id="orderWaitingModal" class="order-status-modal">
+  <div class="modal-content order-status-box">
+    <div class="order-loader"></div>
+    <h2 id="orderStatusTitle">Placing your order</h2>
+    <p id="orderStatusMessage">
+      Your order has been received. Please wait while we prepare your confirmation.
+    </p>
+    <div id="orderStatusTimer">30</div>
+  </div>
+</div>
+
+<!-- ORDER SUCCESS SCREEN -->
+<div id="orderSuccessModal" class="order-status-modal">
+  <div class="modal-content order-status-box">
+    <div class="order-success-icon">✓</div>
+    <h2>Order confirmed!</h2>
+    <p>Your order has been received successfully.</p>
+    <p>Order number: <strong id="confirmedOrderNumber"></strong></p>
+    <p>Pickup date: <strong id="confirmedPickupDate"></strong></p>
+    <button type="button" onclick="closeOrderSuccess()">
+      CONTINUE SHOPPING
+    </button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- HIDDEN M-PESA BACKEND CONNECTION -->
+<iframe
+  name="mpesaBackendFrame"
+  id="mpesaBackendFrame"
+  style="display:none;">
+</iframe>
+
+<form
+  id="mpesaBackendForm"
+  method="POST"
+  target="mpesaBackendFrame"
+  action="https://script.google.com/macros/s/AKfycbw-2NQu3wxnvYjktjPectB2VCCGJEtmBB147xX3O9AtM_InitWI3RK5QnS2TDxPdA56/exec"
+  style="display:none;">
+
+  <input type="hidden" name="action" value="startPayment">
+  <input type="hidden" name="accessToken" id="mpesaAccessToken">
+  <input type="hidden" name="orderId" id="mpesaOrderId">
+  <input type="hidden" name="phone" id="mpesaBackendPhone">
+
+</form>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://chnjdjqrgahhmfywqilk.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_pnfupeDrvYWAf3g6tdeGAw_owGZwC7Q";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+const categoryData = {
+  "Electronics": {
+    icon: "📱",
+    names: [
+      "Wireless Bluetooth Headphones",
+      "Smart Watch",
+      "Wireless Earbuds",
+      "Portable Bluetooth Speaker",
+      "Power Bank 20000mAh",
+      "USB-C Fast Charger",
+      "Gaming Headset",
+      "Mechanical Keyboard",
+      "Wireless Mouse",
+      "HD Webcam"
+    ]
+  },
+  "Phones & Tablets": {
+    icon: "📲",
+    names: [
+      "Android Smartphone",
+      "5G Smartphone",
+      "Android Tablet",
+      "iPad Protective Case",
+      "Tempered Glass Screen Protector",
+      "Fast Charging Phone Cable",
+      "Phone Camera Lens Kit",
+      "Tablet Stand",
+      "Wireless Phone Charger",
+      "Phone Holder"
+    ]
+  },
+  "Computers & Accessories": {
+    icon: "💻",
+    names: [
+      "Laptop Computer",
+      "Wireless Keyboard",
+      "Laptop Backpack",
+      "USB-C Hub",
+      "External SSD",
+      "Laptop Cooling Pad",
+      "HDMI Cable",
+      "Computer Mouse",
+      "Webcam",
+      "Laptop Stand"
+    ]
+  },
+  "Fashion": {
+    icon: "👕",
+    names: [
+      "Classic Casual T-Shirt",
+      "Running Sneakers",
+      "Women's Handbag",
+      "Men's Casual Shirt",
+      "Denim Jeans",
+      "Summer Dress",
+      "Hooded Sweatshirt",
+      "Sports Jacket",
+      "Canvas Sneakers",
+      "Polo Shirt"
+    ]
+  },
+  "Home & Kitchen": {
+    icon: "🏠",
+    names: [
+      "Modern Table Lamp",
+      "Coffee Mug Set",
+      "Kitchen Storage Set",
+      "Soft Throw Pillow",
+      "Wall Clock",
+      "Dining Plate Set",
+      "Laundry Basket",
+      "Electric Kettle",
+      "Kitchen Knife Set",
+      "Cotton Bedsheet Set"
+    ]
+  },
+  "Beauty & Personal Care": {
+    icon: "✨",
+    names: [
+      "Skincare Beauty Set",
+      "Face Moisturizer",
+      "Body Lotion",
+      "Makeup Brush Set",
+      "Hair Dryer",
+      "Facial Cleanser",
+      "Lip Gloss Set",
+      "Beauty Mirror",
+      "Hair Care Kit",
+      "Makeup Bag"
+    ]
+  },
+  "Sports & Outdoors": {
+    icon: "⚽",
+    names: [
+      "Football",
+      "Gym Training Mat",
+      "Sports Water Bottle",
+      "Skipping Rope",
+      "Camping Backpack",
+      "Fitness Resistance Bands",
+      "Running Shoes",
+      "Outdoor Tent",
+      "Yoga Mat",
+      "Sports Gloves"
+    ]
+  },
+  "Automotive": {
+    icon: "🚗",
+    names: [
+      "Car Phone Holder",
+      "Car Seat Organizer",
+      "Portable Car Vacuum",
+      "Car LED Lights",
+      "Car Air Compressor",
+      "Car Cleaning Kit",
+      "Car Dash Camera",
+      "Car Sun Shade",
+      "Car Floor Mats",
+      "Car Charger"
+    ]
+  },
+  "Baby & Kids": {
+    icon: "🧸",
+    names: [
+      "Baby Diaper Bag",
+      "Baby Feeding Bottle",
+      "Baby Blanket",
+      "Kids School Backpack",
+      "Building Blocks Set",
+      "Baby Bath Towel",
+      "Kids Water Bottle",
+      "Baby Stroller Organizer",
+      "Kids Puzzle Game",
+      "Baby Storage Organizer"
+    ]
+  },
+  "Office & Stationery": {
+    icon: "📚",
+    names: [
+      "Office Notebook Set",
+      "Ballpoint Pen Set",
+      "Office Desk Organizer",
+      "A4 Printing Paper",
+      "Desk Lamp",
+      "Office Stapler",
+      "Whiteboard",
+      "File Storage Box",
+      "Calculator",
+      "Laptop Desk Stand"
+    ]
+  }
+};
+
+let products = [];
+let categoryMap = {};
+const categoryIcons = {
+    "Electronics": "📱",
+    "Phones & Tablets": "📲",
+    "Computers & Accessories": "💻",
+    "Fashion": "👕",
+    "Home & Kitchen": "🏠",
+    "Beauty & Personal Care": "✨",
+    "Sports & Outdoors": "⚽",
+    "Automotive": "🚗",
+    "Baby & Kids": "🧸",
+    "Office & Stationery": "📚"
+};
+
+function renderCategories(categories) {
+    const grid = document.getElementById("categoryGrid");
+
+    grid.innerHTML = `
+        <button class="category active" data-cat="All">
+            <span>🛍️</span>
+            <strong>All Products</strong>
+        </button>
+    `;
+
+    categories.forEach(category => {
+        const button = document.createElement("button");
+        button.className = "category";
+        button.dataset.cat = category.name;
+
+        const icon = document.createElement("span");
+        icon.textContent = categoryIcons[category.name] || "🛒";
+
+        const label = document.createElement("strong");
+        label.textContent = category.name;
+
+        button.append(icon, label);
+        button.addEventListener("click", () => {
+            setCategory(category.name);
+        });
+
+        grid.appendChild(button);
+    });
+
+    grid.querySelector('[data-cat="All"]').addEventListener("click", () => {
+        setCategory("All");
+    });
+}
+
+async function loadProducts() {
+    console.log("Loading products from Supabase...");
+	console.log("Step 1: Starting Supabase category request");
+
+    // Load categories
+    const { data: categories, error: categoryError } =
+        await supabaseClient
+            .from("categories")
+            .select("id, name");
+
+    if (categoryError) {
+        console.error("Category loading error:", categoryError);
+        return;
+    }
+
+    categories.forEach(category => {
+    categoryMap[category.id] = category.name;
+});
+
+renderCategories(categories);
+
+    // Load active products
+    const { data, error } = await supabaseClient
+        .from("products")
+        .select(`
+            id,
+            category_id,
+            name,
+            description,
+            price,
+            image_url,
+            stock,
+            is_active,
+            rating,
+            review_count
+        `)
+        .eq("is_active", true)
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        console.error("Product loading error:", error);
+        return;
+    }
+
+    products = data.map(product => ({
+        id: product.id,
+        name: product.name,
+        category: categoryMap[product.category_id] || "Other",
+        description: product.description || "",
+        price: Number(product.price),
+        oldPrice: null,
+        rating: Number(product.rating || 0),
+        reviews: Number(product.review_count || 0),
+        image: product.image_url || "https://placehold.co/600x600?text=Product",
+        stock: Number(product.stock || 0),
+        flash: false,
+        tag: ""
+    }));
+
+   console.log("Products loaded:", products.length);
+
+renderFlash();
+renderProducts();
+updateCart();
+}
+
+
+// Load products when the page starts
+loadProducts();
+let selectedCategory="All";
+let searchTerm="";
+let cart=loadCart();
+
+function money(n){return "KSh "+Number(n).toLocaleString("en-KE")}
+function stars(n){return "★".repeat(n)+"☆".repeat(4-n)}
+function loadCart(){try{return JSON.parse(localStorage.getItem("amsCart"))||[]}catch(e){return []}}
+function saveCart(){localStorage.setItem("amsCart",JSON.stringify(cart))}
+
+
+function productCard(p){
+ return `<article class="card">
+ <a href="#product-${p.id}" onclick="openProduct('${p.id}');return false">
+ <div class="card-image"><img loading="lazy" src="${p.image}" alt="${p.name}">${p.tag?`<span class="tag">${p.tag}</span>`:""}</div>
+ </a>
+ <div class="card-info">
+ <a class="card-name" href="#product-${p.id}" onclick="openProduct('${p.id}');return false">${p.name}</a>
+ <div class="rating" title="${p.rating} out of 4 stars">${stars(p.rating)} <span class="rating-count">(${p.reviews})</span></div>
+ <div class="price">${money(p.price)}</div>
+ <div class="meta">${p.category}</div>
+ <div class="card-buttons"><button class="add" onclick="addToCart('${p.id}')">+ ADD TO CART</button><button class="view" onclick="openProduct('${p.id}')">VIEW</button></div>
+ </div></article>`;
+}
+
+
+function renderProducts(){
+ let list=products.filter(p=>
+  (selectedCategory==="All"||p.category===selectedCategory)&&
+  (p.name.toLowerCase().includes(searchTerm)||p.category.toLowerCase().includes(searchTerm))
+ );
+ const sort=document.getElementById("sort").value;
+ if(sort==="low")list.sort((a,b)=>a.price-b.price);
+ if(sort==="high")list.sort((a,b)=>b.price-a.price);
+ if(sort==="rating")list.sort((a,b)=>b.rating-a.rating);
+ document.getElementById("resultCount").textContent=`Showing ${list.length} of 100 products`;
+ document.getElementById("productGrid").innerHTML=list.length?list.map(productCard).join(""):'<div style="padding:40px;color:#888">No products found. Try another search.</div>';
+}
+
+function renderFlash(){
+ const flashProducts=products.filter(p=>p.flash).slice(0,8);
+ document.getElementById("flashGrid").innerHTML=flashProducts.map(p=>`
+ <article class="flash-card">
+ <a href="#product-${p.id}" onclick="openProduct(${p.id});return false">
+ <div style="position:relative"><img src="${p.image}" loading="lazy" alt="${p.name}"><span class="discount">SALE</span></div>
+ <div class="info"><strong>${p.name}</strong><div class="flash-price">${money(Math.round(p.price*.85))}<span class="old-price">${money(p.price)}</span></div><div class="rating">${stars(p.rating)}</div><a href="#product-${p.id}" onclick="openProduct(${p.id});return false">VIEW DEAL →</a></div>
+ </a></article>`).join("");
+}
+
+function setCategory(category){
+ selectedCategory=category;
+ document.querySelectorAll(".category").forEach(b=>b.classList.toggle("active",b.dataset.cat===category));
+ renderProducts();
+}
+document.querySelectorAll(".category").forEach(b=>b.addEventListener("click",()=>setCategory(b.dataset.cat)));
+
+function searchProducts(){
+ searchTerm=document.getElementById("search").value.trim().toLowerCase();
+ renderProducts();
+ document.getElementById("products").scrollIntoView({behavior:"smooth"});
+}
+document.getElementById("search").addEventListener("input",searchProducts);
+document.getElementById("search").addEventListener("keydown",e=>{if(e.key==="Enter")searchProducts()});
+
+function openProduct(id){
+ const p=products.find(x=>x.id===id);
+ if(!p)return;
+ document.getElementById("modalImage").src=p.image;
+ document.getElementById("modalName").textContent=p.name;
+ document.getElementById("modalCategory").textContent=p.category;
+ document.getElementById("modalDescription").textContent=p.description || "No description available.";
+ document.getElementById("modalRating").textContent=stars(p.rating)+" ("+p.reviews+" reviews)";
+ document.getElementById("modalPrice").textContent=money(p.price);
+ document.getElementById("modalAdd").onclick=()=>{addToCart(p.id);closeProduct()};
+ document.getElementById("productModal").classList.add("show");
+}
+function closeProduct(){document.getElementById("productModal").classList.remove("show")}
+
+function addToCart(id){
+ const item=cart.find(x=>x.id===id);
+ if(item)item.quantity++;
+ else cart.push({id,quantity:1});
+ saveCart();updateCart();toast("Product added to your cart");
+}
+function changeQty(id,change){
+ const item=cart.find(x=>x.id===id);
+ if(!item)return;
+ item.quantity+=change;
+ if(item.quantity<=0)cart=cart.filter(x=>x.id!==id);
+ saveCart();updateCart();
+}
+function removeItem(id){cart=cart.filter(x=>x.id!==id);saveCart();updateCart()}
+function updateCart(){
+ document.getElementById("cartCount").textContent=cart.reduce((s,x)=>s+x.quantity,0);
+ const el=document.getElementById("cartItems");
+ if(!cart.length)el.innerHTML='<div class="empty">🛒<br><br>Your cart is empty.</div>';
+ else el.innerHTML=cart.map(x=>{
+  const p=products.find(y=>y.id===x.id);
+  if(!p)return "";
+ return `<div class="cart-item"><img src="${p.image}" alt=""><div style="flex:1"><strong>${p.name}</strong><small>${money(p.price)}</small><div class="qty"><button onclick="changeQty('${p.id}',-1)">−</button>${x.quantity}<button onclick="changeQty('${p.id}',1)">+</button><button class="remove" onclick="removeItem('${p.id}')">Remove</button></div></div></div>`;
+ }).join("");
+ const total=cart.reduce((s,x)=>s+(products.find(p=>p.id===x.id)?.price||0)*x.quantity,0);
+ document.getElementById("cartTotal").textContent=money(total);
+}
+function openCart(){document.getElementById("drawer").classList.add("open");document.getElementById("overlay").classList.add("show")}
+function closeCart(){document.getElementById("drawer").classList.remove("open");document.getElementById("overlay").classList.remove("show")}
+function checkout() {
+  if (!cart.length) {
+    toast("Your cart is empty.");
+    return;
+  }
+
+  if (!currentUser) {
+    toast("Please sign in to continue with checkout.");
+    return;
+  }
+
+  const name =
+    currentUser.user_metadata?.full_name ||
+    currentUser.user_metadata?.name ||
+    "";
+
+  document.getElementById("deliveryName").value = name;
+  document.getElementById("deliveryEmail").value =
+    currentUser.email || "";
+
+  updateCheckoutSummary();
+
+  document.getElementById("checkoutModal").classList.add("show");
+}
+
+function closeCheckout() {
+  document.getElementById("checkoutModal").classList.remove("show");
+}
+
+
+let shippingCalculationToken = 0;
+
+async function updateCheckoutSummary() {
+  const subtotal = cart.reduce((sum, item) => {
+    const product = products.find(
+      p => String(p.id) === String(item.id)
+    );
+
+    const price = Number(product?.price ?? item.price ?? 0);
+    const quantity = Number(item.qty ?? item.quantity ?? 1);
+
+    return sum + (price * quantity);
+  }, 0);
+
+  document.getElementById("checkoutSubtotal").textContent =
+    money(subtotal);
+
+  const shippingDisplay =
+    document.getElementById("checkoutShipping");
+  const totalDisplay =
+    document.getElementById("checkoutTotal");
+
+  const country = getSelectedCountryName();
+  const requestId = ++shippingCalculationToken;
+
+  if (!country) {
+    shippingDisplay.textContent = "Select country";
+    totalDisplay.textContent = "—";
+    return;
+  }
+
+  if (!cart.length || subtotal <= 0) {
+    shippingDisplay.textContent = money(0);
+    totalDisplay.textContent = money(0);
+    return;
+  }
+
+  shippingDisplay.textContent = "Calculating...";
+  totalDisplay.textContent = "Calculating...";
+
+  try {
+    const productIds = [
+      ...new Set(cart.map(item => item.id))
+    ];
+
+    const { data: weightRows, error: weightError } =
+      await supabaseClient
+        .from("products")
+        .select("id, weight_kg")
+        .in("id", productIds);
+
+    if (weightError) throw weightError;
+
+    let totalWeight = 0;
+
+    for (const item of cart) {
+      const productWeight = weightRows.find(
+        p => String(p.id) === String(item.id)
+      );
+
+      if (!productWeight || Number(productWeight.weight_kg) <= 0) {
+        throw new Error("A product is missing its shipping weight.");
+      }
+
+      const quantity = Number(item.qty ?? item.quantity ?? 1);
+
+      totalWeight += Number(productWeight.weight_kg) * quantity;
+    }
+
+    const { data: calculatedFee, error: shippingError } =
+      await supabaseClient.rpc("calculate_shipping_fee", {
+        p_country: country,
+        p_total_weight: totalWeight
+      });
+
+    if (shippingError) throw shippingError;
+	
+
+
+    if (requestId !== shippingCalculationToken) return;
+
+const shipping = Math.min(
+  Number(calculatedFee),
+  subtotal * 0.20
+);
+
+const total = subtotal + shipping;
+
+    shippingDisplay.textContent =
+      shipping === 0 ? "FREE" : money(shipping);
+
+    totalDisplay.textContent = money(total);
+
+  } catch (error) {
+    if (requestId !== shippingCalculationToken) return;
+
+    console.error("Shipping calculation error:", error);
+
+    shippingDisplay.textContent = "Rate unavailable";
+    totalDisplay.textContent = "—";
+  }
+}
+
+let currentUser = null;
+
+
+let activeMpesaOrderId = null;
+
+
+const countryCallingCodes = [
+  ["Afghanistan", "+93"], ["Albania", "+355"], ["Algeria", "+213"],
+  ["Andorra", "+376"], ["Angola", "+244"], ["Antigua and Barbuda", "+1"],
+  ["Argentina", "+54"], ["Armenia", "+374"], ["Australia", "+61"],
+  ["Austria", "+43"], ["Azerbaijan", "+994"], ["Bahamas", "+1"],
+  ["Bahrain", "+973"], ["Bangladesh", "+880"], ["Barbados", "+1"],
+  ["Belarus", "+375"], ["Belgium", "+32"], ["Belize", "+501"],
+  ["Benin", "+229"], ["Bhutan", "+975"], ["Bolivia", "+591"],
+  ["Bosnia and Herzegovina", "+387"], ["Botswana", "+267"], ["Brazil", "+55"],
+  ["Brunei", "+673"], ["Bulgaria", "+359"], ["Burkina Faso", "+226"],
+  ["Burundi", "+257"], ["Cambodia", "+855"], ["Cameroon", "+237"],
+  ["Canada", "+1"], ["Cape Verde", "+238"], ["Central African Republic", "+236"],
+  ["Chad", "+235"], ["Chile", "+56"], ["China", "+86"],
+  ["Colombia", "+57"], ["Comoros", "+269"], ["Congo", "+242"],
+  ["Costa Rica", "+506"], ["Croatia", "+385"], ["Cuba", "+53"],
+  ["Cyprus", "+357"], ["Czechia", "+420"], ["Denmark", "+45"],
+  ["Djibouti", "+253"], ["Dominica", "+1"], ["Dominican Republic", "+1"],
+  ["DR Congo", "+243"], ["Ecuador", "+593"], ["Egypt", "+20"],
+  ["El Salvador", "+503"], ["Equatorial Guinea", "+240"], ["Eritrea", "+291"],
+  ["Estonia", "+372"], ["Eswatini", "+268"], ["Ethiopia", "+251"],
+  ["Fiji", "+679"], ["Finland", "+358"], ["France", "+33"],
+  ["Gabon", "+241"], ["Gambia", "+220"], ["Georgia", "+995"],
+  ["Germany", "+49"], ["Ghana", "+233"], ["Greece", "+30"],
+  ["Grenada", "+1"], ["Guatemala", "+502"], ["Guinea", "+224"],
+  ["Guinea-Bissau", "+245"], ["Guyana", "+592"], ["Haiti", "+509"],
+  ["Honduras", "+504"], ["Hungary", "+36"], ["Iceland", "+354"],
+  ["India", "+91"], ["Indonesia", "+62"], ["Iran", "+98"],
+  ["Iraq", "+964"], ["Ireland", "+353"], ["Israel", "+972"],
+  ["Italy", "+39"], ["Jamaica", "+1"], ["Japan", "+81"],
+  ["Jordan", "+962"], ["Kazakhstan", "+7"], ["Kenya", "+254"],
+  ["Kiribati", "+686"], ["Kuwait", "+965"], ["Kyrgyzstan", "+996"],
+  ["Laos", "+856"], ["Latvia", "+371"], ["Lebanon", "+961"],
+  ["Lesotho", "+266"], ["Liberia", "+231"], ["Libya", "+218"],
+  ["Liechtenstein", "+423"], ["Lithuania", "+370"], ["Luxembourg", "+352"],
+  ["Madagascar", "+261"], ["Malawi", "+265"], ["Malaysia", "+60"],
+  ["Maldives", "+960"], ["Mali", "+223"], ["Malta", "+356"],
+  ["Marshall Islands", "+692"], ["Mauritania", "+222"], ["Mauritius", "+230"],
+  ["Mexico", "+52"], ["Micronesia", "+691"], ["Moldova", "+373"],
+  ["Monaco", "+377"], ["Mongolia", "+976"], ["Montenegro", "+382"],
+  ["Morocco", "+212"], ["Mozambique", "+258"], ["Myanmar", "+95"],
+  ["Namibia", "+264"], ["Nauru", "+674"], ["Nepal", "+977"],
+  ["Netherlands", "+31"], ["New Zealand", "+64"], ["Nicaragua", "+505"],
+  ["Niger", "+227"], ["Nigeria", "+234"], ["North Korea", "+850"],
+  ["North Macedonia", "+389"], ["Norway", "+47"], ["Oman", "+968"],
+  ["Pakistan", "+92"], ["Palau", "+680"], ["Palestine", "+970"],
+  ["Panama", "+507"], ["Papua New Guinea", "+675"], ["Paraguay", "+595"],
+  ["Peru", "+51"], ["Philippines", "+63"], ["Poland", "+48"],
+  ["Portugal", "+351"], ["Qatar", "+974"], ["Romania", "+40"],
+  ["Russia", "+7"], ["Rwanda", "+250"], ["Saint Kitts and Nevis", "+1"],
+  ["Saint Lucia", "+1"], ["Saint Vincent and the Grenadines", "+1"],
+  ["Samoa", "+685"], ["San Marino", "+378"], ["Sao Tome and Principe", "+239"],
+  ["Saudi Arabia", "+966"], ["Senegal", "+221"], ["Serbia", "+381"],
+  ["Seychelles", "+248"], ["Sierra Leone", "+232"], ["Singapore", "+65"],
+  ["Slovakia", "+421"], ["Slovenia", "+386"], ["Solomon Islands", "+677"],
+  ["Somalia", "+252"], ["South Africa", "+27"], ["South Korea", "+82"],
+  ["South Sudan", "+211"], ["Spain", "+34"], ["Sri Lanka", "+94"],
+  ["Sudan", "+249"], ["Suriname", "+597"], ["Sweden", "+46"],
+  ["Switzerland", "+41"], ["Syria", "+963"], ["Taiwan", "+886"],
+  ["Tajikistan", "+992"], ["Tanzania", "+255"], ["Thailand", "+66"],
+  ["Timor-Leste", "+670"], ["Togo", "+228"], ["Tonga", "+676"],
+  ["Trinidad and Tobago", "+1"], ["Tunisia", "+216"], ["Turkey", "+90"],
+  ["Turkmenistan", "+993"], ["Tuvalu", "+688"], ["Uganda", "+256"],
+  ["Ukraine", "+380"], ["United Arab Emirates", "+971"],
+  ["United Kingdom", "+44"], ["United States", "+1"],
+  ["Uruguay", "+598"], ["Uzbekistan", "+998"], ["Vanuatu", "+678"],
+  ["Vatican City", "+39"], ["Venezuela", "+58"], ["Vietnam", "+84"],
+  ["Yemen", "+967"], ["Zambia", "+260"], ["Zimbabwe", "+263"]
+];
+
+const countryOptions = document.getElementById("countryOptions");
+
+countryCallingCodes.forEach(([country, code]) => {
+  const option = document.createElement("option");
+  option.value = `${country} (${code})`;
+  countryOptions.appendChild(option);
+});
+
+
+const deliveryCountry = document.getElementById("deliveryCountry");
+const deliveryDialCode = document.getElementById("deliveryDialCode");
+
+function updateDeliveryDialCode() {
+  const selectedCountry = deliveryCountry.value.trim();
+
+  const match = countryCallingCodes.find(([country, code]) =>
+    selectedCountry === `${country} (${code})`
+  );
+
+  deliveryDialCode.textContent = match ? match[1] : "+";
+}
+
+deliveryCountry.addEventListener("input", updateDeliveryDialCode);
+deliveryCountry.addEventListener("change", updateDeliveryDialCode);
+
+function getSelectedCountryName() {
+  const selected = document.getElementById("deliveryCountry").value.trim();
+
+  const match = countryCallingCodes.find(([country, code]) => {
+    return selected === `${country} (${code})` ||
+           selected === country;
+  });
+
+  return match ? match[0] : "";
+}
+
+deliveryCountry.addEventListener("input", updateCheckoutSummary);
+deliveryCountry.addEventListener("change", updateCheckoutSummary);
+document.getElementById("checkoutForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  if (!this.reportValidity()) return;
+
+  if (!currentUser) {
+    toast("Please sign in to place your order.");
+    return;
+  }
+
+  if (!cart.length) {
+    toast("Your cart is empty.");
+    return;
+  }
+
+  const submitButton = this.querySelector(".checkout-submit");
+  submitButton.disabled = true;
+  submitButton.textContent = "PROCESSING...";
+
+  const waitingModal = document.getElementById("orderWaitingModal");
+
+  try {
+    let orderId = activeMpesaOrderId;
+    let orderNumber = "";
+    let pickupDate = null;
+
+    // STEP A: Create the order only if one does not already exist.
+    if (!orderId) {
+      const orderItems = cart.map(item => ({
+        id: item.id,
+        quantity: Number(item.qty ?? item.quantity ?? 1)
+      }));
+
+      const { data, error } = await supabaseClient.rpc(
+        "place_customer_order",
+        {
+          p_items: orderItems,
+          p_shipping_name: document.getElementById("deliveryName").value.trim(),
+          p_shipping_phone: document.getElementById("deliveryPhone").value.trim(),
+          p_shipping_email: document.getElementById("deliveryEmail").value.trim(),
+         p_county: getSelectedCountryName(),
+          p_town: document.getElementById("deliveryTown").value.trim(),
+          p_address: document.getElementById("deliveryAddress").value.trim(),
+          p_delivery_instructions: document.getElementById("deliveryInstructions").value.trim()
+        }
+      );
+
+      if (error) throw error;
+
+      const order = Array.isArray(data) ? data[0] : data;
+
+      if (!order || !order.success || !order.order_number) {
+        throw new Error(order?.message || "Order creation was unsuccessful.");
+      }
+
+      orderNumber = order.order_number;
+      pickupDate = order.pickup_date || null;
+
+      // Use the order ID returned by the order creation function.
+orderId = order.order_id;
+
+if (!orderId) {
+  throw new Error("Order created, but its ID could not be retrieved.");
+}
+
+activeMpesaOrderId = orderId;
+
+      // Save delivery details to the customer's profile.
+      const deliveryDetails = {
+  full_name: document.getElementById("deliveryName").value.trim(),
+  phone: document.getElementById("deliveryPhone").value.trim(),
+  delivery_country: getSelectedCountryName(),
+  delivery_town: document.getElementById("deliveryTown").value.trim(),
+  delivery_address: document.getElementById("deliveryAddress").value.trim(),
+  delivery_instructions: document.getElementById("deliveryInstructions").value.trim(),
+  updated_at: new Date().toISOString()
+};
+
+      const { error: profileError } = await supabaseClient
+        .from("profiles")
+        .update(deliveryDetails)
+        .eq("id", currentUser.id);
+
+      if (profileError) {
+        console.warn("Profile details were not updated:", profileError);
+      }
+    }
+
+    // STEP B: Get the customer's Supabase access token.
+    const { data: sessionData, error: sessionError } =
+      await supabaseClient.auth.getSession();
+
+    if (sessionError || !sessionData.session?.access_token) {
+      throw new Error("Your session has expired. Please sign in again.");
+    }
+
+    // STEP C: Prepare the hidden form for the Apps Script backend.
+    document.getElementById("mpesaAccessToken").value =
+      sessionData.session.access_token;
+
+    document.getElementById("mpesaOrderId").value = orderId;
+
+    document.getElementById("mpesaBackendPhone").value =
+  document.getElementById("mpesaPaymentPhone").value.trim();
+
+    // STEP D: Display the payment waiting screen.
+    document.getElementById("orderStatusTitle").textContent =
+      "Waiting for M-PESA";
+
+    document.getElementById("orderStatusMessage").textContent =
+      "Check your phone. Enter your M-PESA PIN when prompted to complete payment.";
+
+    document.getElementById("orderStatusTimer").textContent = "...";
+
+    waitingModal.classList.add("show");
+
+    // Send the payment request to Google Apps Script.
+    document.getElementById("mpesaBackendForm").submit();
+
+    // STEP E: Check Supabase for genuine payment confirmation.
+    let paymentConfirmed = false;
+    let paymentFailed = false;
+    let failureMessage = "";
+
+    for (let i = 0; i < 60; i++) {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      const { data: payment, error: paymentError } = await supabaseClient
+        .from("payment_attempts")
+        .select("status, result_description, mpesa_receipt_number")
+        .eq("order_id", orderId)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (paymentError) throw paymentError;
+
+      const { data: latestOrder, error: latestOrderError } =
+        await supabaseClient
+          .from("orders")
+          .select("payment_status, order_number, pickup_date")
+          .eq("id", orderId)
+          .eq("user_id", currentUser.id)
+          .single();
+
+      if (latestOrderError) throw latestOrderError;
+
+      if (latestOrder.payment_status === "paid") {
+        paymentConfirmed = true;
+        orderNumber = latestOrder.order_number;
+        pickupDate = latestOrder.pickup_date || pickupDate;
+        break;
+      }
+
+      if (payment?.status === "failed") {
+        paymentFailed = true;
+        failureMessage =
+          payment.result_description || "M-PESA payment was unsuccessful.";
+        break;
+      }
+    }
+
+    waitingModal.classList.remove("show");
+
+    // STEP F: Only clear the cart after confirmed payment.
+    if (paymentConfirmed) {
+      cart = [];
+      saveCart();
+      updateCart();
+
+      activeMpesaOrderId = null;
+      closeCheckout();
+
+      document.getElementById("confirmedOrderNumber").textContent =
+        orderNumber || "";
+
+      document.getElementById("confirmedPickupDate").textContent =
+        pickupDate || "To be confirmed";
+
+      document.getElementById("orderSuccessModal").classList.add("show");
+
+    } else if (paymentFailed) {
+      toast(failureMessage + " You can try again.");
+
+    } else {
+      toast("Payment is still awaiting confirmation. Check My Orders before trying again.");
+    }
+
+  } catch (error) {
+    console.error("M-PESA checkout error:", error);
+    waitingModal.classList.remove("show");
+    toast(error.message || "Payment could not be started. Please try again.");
+
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "CONTINUE TO PLACE ORDER";
+  }
+});
+
+
+function closeOrderSuccess() {
+  document.getElementById("orderSuccessModal").classList.remove("show");
+}
+
+function accountMessage() {
+  const modal = document.getElementById("authModal");
+
+  if (modal) {
+    modal.classList.add("show");
+  }
+
+  showLogin();
+  updateAuthUI();
+}
+
+function closeAuth() {
+  document.getElementById("authModal").classList.remove("show");
+}
+
+function showSignup() {
+  document.getElementById("loginForm").style.display = "none";
+  document.getElementById("signupForm").style.display = "flex";
+  document.getElementById("authTitle").textContent = "Create Account";
+  document.getElementById("authMessage").textContent = "Join Alibaba Merchant Store today.";
+}
+
+function showLogin() {
+  document.getElementById("signupForm").style.display = "none";
+  document.getElementById("loginForm").style.display = "flex";
+
+  const title = document.getElementById("authTitle");
+  const message = document.getElementById("authMessage");
+
+  if (title) {
+    title.textContent = "Welcome Back";
+  }
+
+  if (message) {
+    message.textContent =
+      "Sign in to your Alibaba Merchant Store account.";
+  }
+
+  const loginMessage = document.getElementById("loginMessage");
+
+  if (loginMessage) {
+    loginMessage.textContent = "";
+  }
+}
+
+
+function updateAuthUI() {
+  document.getElementById("authForms").style.display =
+    currentUser ? "none" : "block";
+
+  document.getElementById("signedInPanel").style.display =
+    currentUser ? "block" : "none";
+
+  if (currentUser) {
+    document.getElementById("signedInEmail").textContent =
+      currentUser.email;
+
+    const nameEl = document.getElementById("customerName");
+
+    if (nameEl) {
+      nameEl.textContent =
+        currentUser.user_metadata?.full_name ||
+        currentUser.user_metadata?.name ||
+        currentUser.email?.split("@")[0] ||
+        "Customer Account";
+    }
+  }
+}
+
+
+let toastTimeout;
+function toast(message){
+ const el=document.getElementById("toast");
+ el.textContent=message;el.classList.add("show");
+ clearTimeout(toastTimeout);
+ toastTimeout=setTimeout(()=>el.classList.remove("show"),2400);
+}
+
+// Flash-sale display countdown. This is a visual demo, not a live offer expiry.
+let seconds=8*60*60;
+function tick(){
+ seconds--;
+ if(seconds<0)seconds=8*60*60;
+ const h=String(Math.floor(seconds/3600)).padStart(2,"0");
+ const m=String(Math.floor((seconds%3600)/60)).padStart(2,"0");
+ const s=String(seconds%60).padStart(2,"0");
+ document.getElementById("timer").textContent=h+":"+m+":"+s;
+}
+document.getElementById("year").textContent=new Date().getFullYear();
+loadProducts();
+updateCart();
+setInterval(tick,1000);
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
+
+  if (error) {
+    document.getElementById("authMessage").textContent = error.message;
+    return;
+  }
+
+  currentUser = data.user;
+  updateAuthUI();
+
+  document.getElementById("authMessage").textContent = "Welcome back!";
+});
+document.getElementById("signupForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("signupName").value.trim();
+  const email = document.getElementById("signupEmail").value.trim();
+  const password = document.getElementById("signupPassword").value;
+
+  const { data, error } = await supabaseClient.auth.signUp({
+    email: email,
+    password: password,
+    options: {
+      data: {
+        full_name: name
+      },
+      emailRedirectTo: window.location.origin
+    }
+  });
+
+  if (error) {
+    document.getElementById("authMessage").textContent = error.message;
+    return;
+  }
+
+  if (data.session) {
+    currentUser = data.user;
+    updateAuthUI();
+    document.getElementById("authMessage").textContent = "Your account has been created!";
+  } else {
+    document.getElementById("authMessage").textContent =
+      "Account created! Please check your email to confirm your address before signing in.";
+  }
+});
+async function googleSignIn() {
+  const { error } = await supabaseClient.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: window.location.origin
+    }
+  });
+
+  if (error) {
+    document.getElementById("authMessage").textContent = error.message;
+  }
+}
+async function signOutUser() {
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    document.getElementById("authMessage").textContent = error.message;
+    return;
+  }
+
+  currentUser = null;
+  updateAuthUI();
+  showLogin();
+
+  document.getElementById("authMessage").textContent = "You have signed out.";
+}
+
+supabaseClient.auth.getSession().then(({ data, error }) => {
+  if (error) {
+    console.error("Session error:", error.message);
+    return;
+  }
+
+  currentUser = data.session?.user || null;
+  updateAuthUI();
+});
+
+
+async function loadSavedDeliveryDetails(user) {
+  if (!user) return;
+
+  const { data, error } = await supabaseClient
+    .from("profiles")
+    .select("full_name, phone, delivery_country, delivery_town, delivery_address, delivery_instructions")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Could not load saved delivery details:", error);
+    return;
+  }
+
+  if (!data) return;
+
+  document.getElementById("deliveryName").value = data.full_name || "";
+  document.getElementById("deliveryPhone").value = data.phone || "";
+  document.getElementById("deliveryCountry").value = data.delivery_country || "";
+  document.getElementById("deliveryTown").value = data.delivery_town || "";
+  document.getElementById("deliveryAddress").value = data.delivery_address || "";
+  document.getElementById("deliveryInstructions").value = data.delivery_instructions || "";
+
+  document.getElementById("deliveryEmail").value = user.email || "";
+
+  updateDeliveryDialCode();
+  updateCheckoutSummary();
+}
+
+
+supabaseClient.auth.onAuthStateChange((event, session) => {
+  currentUser = session?.user || null;
+  updateAuthUI();
+
+  if (currentUser) {
+    setTimeout(() => loadSavedDeliveryDetails(currentUser), 0);
+  }
+});
+async function openCustomerSection(section) {
+  const content = document.getElementById("customerSectionContent");
+
+  content.style.display = "block";
+  content.innerHTML = "<p>Loading...</p>";
+
+  const { data: { user }, error: authError } =
+    await supabaseClient.auth.getUser();
+
+  if (authError || !user) {
+    content.innerHTML = "<p>Please sign in again.</p>";
+    return;
+  }
+
+  if (section === "orders") {
+    const { data: orders, error } = await supabaseClient
+      .from("orders")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error(error);
+      content.innerHTML = "<p>Unable to load your orders.</p>";
+      return;
+    }
+
+    if (!orders || orders.length === 0) {
+      content.innerHTML = `
+        <h3>My Orders</h3>
+        <p>You haven't placed any orders yet.</p>
+      `;
+      return;
+    }
+
+   
+const orderIds = orders.map(order => order.id);
+
+const { data: items, error: itemsError } = await supabaseClient
+  .from("order_items")
+  .select("*")
+  .in("order_id", orderIds);
+
+const { data: requests, error: requestsError } = await supabaseClient
+  .from("cancellation_requests")
+  .select("*")
+  .in("order_id", orderIds);
+
+const { data: orderCancellationRequests, error: orderCancellationError } =
+  await supabaseClient
+    .from("order_cancellation_requests")
+    .select("*")
+    .in("order_id", orderIds);
+
+if (itemsError || requestsError || orderCancellationError) {
+  console.error(itemsError || requestsError);
+  content.innerHTML = "<p>Unable to load order products.</p>";
+  return;
+}
+
+content.innerHTML = `
+  <h3>My Orders (${orders.length})</h3>
+
+  ${orders.map(order => {
+    const orderItems = (items || []).filter(
+      item => item.order_id === order.id
+    );
+
+    const canCancel =
+      order.payment_status === "paid" &&
+      ![
+        "shipped",
+        "being shipped",
+        "in transit",
+        "out for delivery",
+        "delivered",
+        "ready for pickup",
+        "completed",
+        "cancelled"
+      ].includes(String(order.order_status || "").toLowerCase());
+
+    return `
+      <div class="order-card">
+        <strong>Order #${order.order_number || "N/A"}</strong>
+
+        <p>Total: KSh ${Number(order.total_amount || 0).toLocaleString()}</p>
+        <p>Payment: ${order.payment_status || "Pending"}</p>
+        <p>Delivery: ${order.order_status || "Processing"}</p>
+		
+		${
+  (() => {
+    const fullRequest = (orderCancellationRequests || []).find(
+      request => request.order_id === order.id
+    );
+
+    if (fullRequest) {
+      return `<p>Full order cancellation: ${escapeOrderText(fullRequest.status)}</p>`;
+    }
+
+    return canCancel
+      ? `<button class="secondary"
+          onclick="requestWholeOrderCancellation('${order.id}')">
+          REQUEST FULL ORDER CANCELLATION
+        </button>`
+      : "";
+  })()
+}
+
+
+${
+  String(order.payment_status || "").toLowerCase() === "paid"
+    ? `
+      <div class="tracking-info">
+        <strong>Shipment Tracking</strong>
+
+       <div class="tracking-steps">
+  ${
+    (() => {
+      const stage = String(order.tracking_stage || "preparing_origin").toLowerCase();
+
+    const steps = [
+  { key: "order_confirmed", label: "Order confirmed" },
+  { key: "preparing_origin", label: "Preparing in Washington State, USA" },
+  { key: "in_transit", label: "Shipment in transit" },
+  { key: "arrived_destination", label: "Arrived in destination country" },
+  { key: "local_delivery", label: "Local delivery" },
+  { key: "delivered", label: "Delivered" }
+];
+
+const stagePositions = {
+  order_confirmed: 0,
+  preparing_origin: 1,
+  in_transit: 2,
+  out_for_delivery: 2,
+  arrived_destination: 3,
+  local_delivery: 4,
+  delivered: 5
+};
+
+const currentIndex = stagePositions[stage] ?? 0;
+
+return steps.map((step, index) => {
+  const status =
+    index < currentIndex ? "completed" :
+    index === currentIndex ? "current" :
+    "upcoming";
+
+  const symbol =
+    status === "completed" ? "✓" :
+    status === "current" ? "●" : "○";
+
+  const statusLabel =
+    status === "completed" ? "Completed" :
+    status === "current" ? "In progress" :
+    "Upcoming";
+
+  return `
+    <p class="tracking-step ${status}">
+      <strong>${symbol} ${step.label}</strong>
+      <small>${statusLabel}</small>
+    </p>
+  `;
+}).join("");
+    })()
+  }
+</div>
+
+        <p>
+  Expected delivery:
+  ${
+    order.expected_delivery_date
+      ? new Date(order.expected_delivery_date + "T00:00:00").toLocaleDateString()
+      : "To be confirmed"
+  }
+</p>
+
+        <div
+          id="shipment-map-${order.id}"
+          class="shipment-map"
+          data-stage="${escapeOrderText(order.tracking_stage || "preparing_origin")}"
+          data-country="${escapeOrderText(order.country || "")}"
+        ></div>
+
+        <small>Estimated location only — not live GPS tracking.</small>
+      </div>
+    `
+    : ""
+}
+        <h4>Products in this order</h4>
+
+        ${orderItems.map(item => {
+          const itemRequests = (requests || []).filter(
+            request => request.order_item_id === item.id
+          );
+
+          const requestedQuantity = itemRequests
+            .filter(request =>
+              ["pending", "approved"].includes(request.status)
+            )
+            .reduce((sum, request) => sum + Number(request.quantity), 0);
+
+          const remaining = Number(item.quantity) - requestedQuantity;
+
+          return `
+            <div class="order-item">
+              <strong>${escapeOrderText(item.product_name)}</strong>
+              <p>Quantity: ${item.quantity}</p>
+              <p>Price: KSh ${Number(item.line_total).toLocaleString()}</p>
+
+              ${
+                itemRequests.length
+                  ? itemRequests.map(request => `
+                      <p>
+                        Cancellation: ${escapeOrderText(request.status)}
+                        (${request.quantity})
+                      </p>
+                    `).join("")
+                  : ""
+              }
+
+              ${
+                canCancel && remaining > 0
+                  ? `<button class="secondary"
+                      onclick="requestItemCancellation('${item.id}', ${remaining})">
+                      REQUEST ITEM CANCELLATION
+                    </button>`
+                  : ""
+              }
+            </div>
+          `;
+        }).join("")}
+      </div>
+    `;
+  }).join("")}
+`;
+
+initializeShipmentMaps();
+
+  } else if (section === "delivery") {
+    const { data: profile, error } = await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (error || !profile) {
+      console.error(error);
+      content.innerHTML = "<p>Unable to load delivery details.</p>";
+      return;
+    }
+
+    content.innerHTML = `
+      <h3>Delivery Details</h3>
+      <p>Manage where your orders should be delivered.</p>
+
+      <div class="delivery-form">
+        <label>Phone Number</label>
+        <input id="profileDeliveryPhone" type="tel"
+          placeholder="e.g. 2547XXXXXXXX">
+
+        <label>County</label>
+        <input id="profileDeliveryCounty" type="text"
+          placeholder="Enter your county">
+
+        <label>Town / Area</label>
+        <input id="profileDeliveryTown" type="text"
+          placeholder="Enter your town">
+
+        <label>Full Delivery Address</label>
+        <textarea id="profileDeliveryAddress"
+          placeholder="Building, street, house number"></textarea>
+
+        <label>Delivery Instructions</label>
+        <textarea id="profileDeliveryInstructions"
+          placeholder="Landmarks or additional directions"></textarea>
+
+        <button class="primary" onclick="saveDeliveryDetails()">
+          SAVE DELIVERY DETAILS
+        </button>
+
+        <p id="deliveryMessage"></p>
+      </div>
+    `;
+
+    document.getElementById("profileDeliveryPhone").value = profile.phone || "";
+    document.getElementById("profileDeliveryCounty").value = profile.delivery_county || "";
+    document.getElementById("profileDeliveryTown").value = profile.delivery_town || "";
+    document.getElementById("profileDeliveryAddress").value = profile.delivery_address || "";
+    document.getElementById("profileDeliveryInstructions").value = profile.delivery_instructions || "";
+
+  } else if (section === "profile") {
+    const { data: profile, error } = await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (error) {
+      console.error(error);
+      content.innerHTML = "<p>Unable to load your profile.</p>";
+      return;
+    }
+
+    content.innerHTML = `
+      <h3>My Profile</h3>
+      <p>Manage your personal information.</p>
+
+      <div class="delivery-form">
+        <label>Full Name</label>
+        <input id="profileFullName" type="text">
+
+        <label>Email Address</label>
+        <input type="email" id="profileEmail"
+          value="${(user.email || "").replace(/"/g, "&quot;")}" disabled>
+
+        <label>Phone Number</label>
+        <input id="profilePhone" type="tel">
+
+        <button class="primary" onclick="saveProfileDetails()">
+          SAVE PROFILE
+        </button>
+
+        <p id="profileMessage"></p>
+      </div>
+    `;
+
+    document.getElementById("profileFullName").value = profile?.full_name || "";
+    document.getElementById("profilePhone").value = profile?.phone || "";
+  }
+}
+
+function escapeOrderText(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+async function requestItemCancellation(itemId, maximumQuantity) {
+  const quantityInput = prompt(
+    `How many units would you like to cancel? Enter 1 to ${maximumQuantity}.`
+  );
+
+  if (quantityInput === null) return;
+
+  const quantity = Number(quantityInput);
+
+  if (
+    !Number.isInteger(quantity) ||
+    quantity < 1 ||
+    quantity > maximumQuantity
+  ) {
+    toast("Please enter a valid quantity.");
+    return;
+  }
+
+  const reason = prompt("Why would you like to cancel this product?");
+
+  if (reason === null) return;
+
+  const { data, error } = await supabaseClient.rpc(
+    "request_item_cancellation",
+    {
+      p_order_item_id: itemId,
+      p_quantity: quantity,
+      p_reason: reason
+    }
+  );
+
+  if (error) {
+    console.error(error);
+    toast(error.message || "Cancellation request failed.");
+    return;
+  }
+
+  toast("Cancellation request submitted!");
+
+  await openCustomerSection("orders");
+}
+
+async function requestWholeOrderCancellation(orderId) {
+  const reason = prompt(
+    "Why would you like to cancel this entire order?"
+  );
+
+  if (reason === null) return;
+
+  const { data, error } = await supabaseClient.rpc(
+    "request_order_cancellation",
+    {
+      p_order_id: orderId,
+      p_reason: reason
+    }
+  );
+
+  if (error) {
+    console.error(error);
+    toast(error.message || "Order cancellation request failed.");
+    return;
+  }
+
+  toast("Full order cancellation request submitted!");
+
+  await openCustomerSection("orders");
+}
+
+
+async function initializeShipmentMaps() {
+  if (typeof L === "undefined") {
+    console.error("Shipment map library has not loaded.");
+    return;
+  }
+
+  const washington = [47.7511, -120.7401];
+  const destinationCache = {};
+
+  async function getDestination(country) {
+    if (!country) return null;
+
+    if (destinationCache[country]) {
+      return destinationCache[country];
+    }
+
+    try {
+      const response = await fetch(
+        "https://restcountries.com/v3.1/name/" +
+        encodeURIComponent(country) +
+        "?fields=name,latlng"
+      );
+
+      if (!response.ok) return null;
+
+      const countries = await response.json();
+      const coordinates = countries[0]?.latlng;
+
+      if (
+        !Array.isArray(coordinates) ||
+        coordinates.length < 2 ||
+        !Number.isFinite(coordinates[0]) ||
+        !Number.isFinite(coordinates[1])
+      ) {
+        return null;
+      }
+
+      destinationCache[country] = coordinates;
+      return coordinates;
+
+    } catch (error) {
+      console.error("Could not locate destination:", country, error);
+      return null;
+    }
+  }
+
+  const mapElements = document.querySelectorAll(".shipment-map");
+
+  for (const element of mapElements) {
+    if (element.dataset.mapInitialized) continue;
+
+    element.dataset.mapInitialized = "loading";
+
+    const country = element.dataset.country;
+    const stage = String(element.dataset.stage || "").toLowerCase();
+
+   const hasArrived = [
+  "arrived_destination",
+  "local_delivery",
+  "delivered"
+].includes(stage);
+
+    const destination = hasArrived
+      ? await getDestination(country)
+      : null;
+
+    const currentLocation = destination || washington;
+
+    const map = L.map(element).setView(currentLocation, 5);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+
+    L.marker(currentLocation)
+      .addTo(map)
+      .bindPopup(
+        destination
+          ? "Estimated shipment location: " + country
+          : "Shipment is estimated to be in Washington State, USA"
+      )
+      .openPopup();
+
+    element.dataset.mapInitialized = "true";
+
+    setTimeout(() => map.invalidateSize(), 200);
+  }
+}
+
+// SAVE PROFILE
+async function saveProfileDetails() {
+  const message = document.getElementById("profileMessage");
+  if (!message) return;
+
+  message.textContent = "Saving...";
+
+  const { data: { user }, error: authError } =
+    await supabaseClient.auth.getUser();
+
+  if (authError || !user) {
+    message.textContent = "Please sign in again.";
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("profiles")
+    .update({
+      full_name: document.getElementById("profileFullName").value.trim(),
+      phone: document.getElementById("profilePhone").value.trim(),
+      updated_at: new Date().toISOString()
+    })
+    .eq("id", user.id);
+
+  if (error) {
+    console.error(error);
+    message.textContent = "Could not save your profile.";
+    return;
+  }
+
+  message.textContent = "✓ Profile updated successfully!";
+}
+
+
+// SAVE DELIVERY DETAILS
+async function saveDeliveryDetails() {
+  const message = document.getElementById("deliveryMessage");
+  if (!message) return;
+
+  message.textContent = "Saving...";
+
+  const { data: { user }, error: authError } =
+    await supabaseClient.auth.getUser();
+
+  if (authError || !user) {
+    message.textContent = "Please sign in again.";
+    return;
+  }
+
+  const deliveryData = {
+    phone: document.getElementById("profileDeliveryPhone").value.trim(),
+    delivery_county: document.getElementById("profileDeliveryCounty").value.trim(),
+    delivery_town: document.getElementById("profileDeliveryTown").value.trim(),
+    delivery_address: document.getElementById("profileDeliveryAddress").value.trim(),
+    delivery_instructions: document.getElementById("profileDeliveryInstructions").value.trim(),
+    updated_at: new Date().toISOString()
+  };
+
+  const { error } = await supabaseClient
+    .from("profiles")
+    .update(deliveryData)
+    .eq("id", user.id);
+
+  if (error) {
+    console.error(error);
+    message.textContent = "Could not save. Please try again.";
+    return;
+  }
+
+  message.textContent = "✓ Delivery details saved successfully!";
+}
+</script>
+
+
+<!-- ALIBABA CUSTOMER SUPPORT -->
+<style>
+#ams-support-button {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 50px;
+  background: #ff6a00;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 5px 22px rgba(0,0,0,.25);
+}
+
+#ams-support-button:hover {
+  background: #e85f00;
+  transform: translateY(-2px);
+}
+
+#ams-support-button svg {
+  width: 23px;
+  height: 23px;
+}
+
+#ams-support-panel {
+  display: none;
+  position: fixed;
+  right: 24px;
+  bottom: 90px;
+  z-index: 99999;
+  width: 350px;
+  max-width: calc(100vw - 32px);
+  max-height: 75vh;
+  overflow-y: auto;
+  background: #fff;
+  color: #222;
+  border-radius: 16px;
+  box-shadow: 0 8px 35px rgba(0,0,0,.25);
+  font-family: Arial, sans-serif;
+}
+
+#ams-support-panel.ams-open {
+  display: block;
+}
+
+.ams-support-header {
+  background: #ff6a00;
+  color: white;
+  padding: 20px;
+  border-radius: 16px 16px 0 0;
+}
+
+.ams-support-header h3 {
+  margin: 0 0 6px;
+  font-size: 19px;
+}
+
+.ams-support-header p {
+  margin: 0;
+  font-size: 13px;
+  opacity: .95;
+}
+
+.ams-support-content {
+  padding: 18px;
+}
+
+.ams-support-content h4 {
+  margin: 0 0 14px;
+  font-size: 15px;
+}
+
+.ams-faq {
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+}
+
+.ams-faq summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ams-faq summary::after {
+  content: "+";
+  color: #ff6a00;
+  font-size: 18px;
+}
+
+.ams-faq[open] summary::after {
+  content: "−";
+}
+
+.ams-faq p {
+  margin: 10px 0 2px;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ams-whatsapp-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 14px;
+  margin-top: 18px;
+  background: #168b4b;
+  color: white;
+  text-decoration: none;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 700;
+  box-sizing: border-box;
+}
+
+.ams-whatsapp-button:hover {
+  background: #10743d;
+}
+
+.ams-support-note {
+  text-align: center;
+  font-size: 11px;
+  color: #888;
+  margin-top: 12px;
+}
+
+@media(max-width: 480px) {
+  #ams-support-button {
+    right: 15px;
+    bottom: 15px;
+  }
+
+  #ams-support-panel {
+    right: 12px;
+    bottom: 78px;
+  }
+}
+</style>
+
+<div id="ams-support-panel">
+  <div class="ams-support-header">
+    <h3>Alibaba Customer Support</h3>
+    <p>Welcome! How can we help you today?</p>
+  </div>
+
+  <div class="ams-support-content">
+    
+<h4>Frequently Asked Questions</h4>
+
+<details class="ams-faq">
+  <summary>1. How do I shop and place an order?</summary>
+  <p>
+    Shopping with Alibaba Merchant Store is simple. Browse the available
+    product categories or use the search feature to find an item you need.
+    Open a product to view its price, description and other details.
+    Select your preferred quantity and add it to your shopping cart.
+  </p>
+  <p>
+    When you have finished shopping, open your cart, review your selected
+    products and quantities, then proceed to checkout. Enter your delivery
+    information, choose the available payment method and follow the
+    instructions to complete your order.
+  </p>
+</details>
+
+<details class="ams-faq">
+  <summary>2. Which payment methods do you accept?</summary>
+  <p>
+    M-PESA is currently the available payment method at checkout.
+    Select M-PESA, enter the phone number you wish to pay with and
+    submit your order to initiate the payment process.
+  </p>
+  <p>
+    Visa, Mastercard, PayPal and bank transfer may be displayed as
+    additional payment options, but they are not currently available.
+    Please do not send payments to unofficial numbers or accounts.
+  </p>
+</details>
+
+<details class="ams-faq">
+  <summary>3. How do I pay using M-PESA?</summary>
+  <p>
+    Select M-PESA as your payment method during checkout. Enter the
+    M-PESA phone number that should receive the payment request.
+    This can be different from the phone number entered for delivery.
+  </p>
+  <p>
+    After submitting your order, follow the payment prompt on your
+    phone and enter your M-PESA PIN privately to authorize the payment.
+    Never share your PIN or OTP with anyone, including customer support.
+  </p>
+  <p>
+    Keep the payment confirmation message for your records. If you
+    experience a delay, check your M-PESA messages and contact support
+    with your order number.
+  </p>
+</details>
+
+<details class="ams-faq">
+  <summary>4. How are delivery charges calculated?</summary>
+  <p>
+    Delivery charges are calculated according to the delivery country
+    and the estimated combined weight of the products in your order.
+    Different destinations may have different delivery rates.
+  </p>
+  <p>
+    To keep delivery costs reasonable, the customer-facing shipping
+    charge is capped at 20% of the product subtotal. The final shipping
+    amount is displayed in your checkout summary before you submit
+    your order.
+  </p>
+</details>
+
+<details class="ams-faq">
+  <summary>5. Do you deliver outside USA Market?</summary>
+  <p>
+    The checkout supports customers selecting different delivery
+    countries. Delivery charges depend on the destination and the
+    combined weight of the order.
+  </p>
+  <p>
+    International delivery arrangements, availability and delivery
+    timelines may vary. If you are unsure whether your destination
+    can be served, contact our support team before placing your order.
+  </p>
+</details>
+
+<details class="ams-faq">
+  <summary>6. How can I track my order?</summary>
+  <p>
+    Sign in using the account you used when placing your order.
+    Navigate to the My Orders section to view your order history
+    and the latest status available.
+  </p>
+  <p>
+    Order statuses may change as your purchase progresses through
+    payment confirmation, preparation and delivery arrangements.
+    If your order status has not changed for an unusually long time,
+    contact support and provide your order number.
+  </p>
+</details>
+
+<details class="ams-faq">
+  <summary>7. What should I do if my M-PESA payment fails or is delayed?</summary>
+  <p>
+    First, check whether you received an M-PESA payment request on
+    your phone. Make sure the phone number entered at checkout is
+    correct and that your phone can receive payment prompts.
+  </p>
+  <p>
+    If no prompt arrives, or the payment appears unsuccessful, do not
+    repeatedly make payments without checking the transaction status.
+    If money was deducted but your order is not confirmed, contact
+    support with your order number and the transaction confirmation
+    details. Never share your M-PESA PIN.
+  </p>
+</details>
+
+<details class="ams-faq">
+  <summary>8. Can I cancel or change an order after placing it?</summary>
+  <p>
+    If you need to cancel an order or correct your delivery information,
+    contact customer support as soon as possible.
+  </p>
+  <p>
+    Please provide your order number and clearly explain the change
+    you need. Requests may depend on the current order status.
+    Once an order has progressed to shipping or dispatch, changes
+    or cancellation may no longer be possible.
+  </p>
+</details>
+
+<details class="ams-faq">
+  <summary>9. What happens if I receive a damaged or incorrect product?</summary>
+  <p>
+    If an item arrives damaged, defective or different from what you
+    ordered, contact customer support and provide your order number.
+    Explain the issue clearly and include photographs of the product
+    and its packaging where possible.
+  </p>
+  <p>
+    Our support team can review the information and advise you on
+    the available resolution. Any replacement, return or refund
+    arrangement will depend on the circumstances and the applicable
+    store policy.
+  </p>
+</details>
+
+<details class="ams-faq">
+  <summary>10. How do I create an account or update my delivery details?</summary>
+  <p>
+    You can create an account through the Sign Up option on the store.
+    Use a valid email address and the required registration details.
+    Sign in whenever you want to access your account.
+  </p>
+  <p>
+    To update your saved delivery information, open your account
+    dashboard and select Delivery Details or My Profile, where
+    available. Make sure your name, phone number, country, town
+    and delivery address are accurate before placing an order.
+  </p>
+  <p>
+    If you have trouble signing in or updating your information,
+    contact customer support for assistance.
+  </p>
+</details>
+
+    <a
+      class="ams-whatsapp-button"
+      href="https://wa.me/254778039205?text=Hi%20Alibaba%2C%20I%20need%20assistance%20with..."
+      target="_blank"
+      rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="21" height="21">
+        <path d="M20.52 3.48A11.8 11.8 0 0 0 12.13 0C5.6 0 .28 5.3.28 11.83c0 2.08.55 4.1 1.6 5.88L.18 24l6.46-1.69a11.8 11.8 0 0 0 5.49 1.36h.01c6.53 0 11.85-5.31 11.85-11.84a11.8 11.8 0 0 0-3.47-8.35ZM12.14 21.7a9.85 9.85 0 0 1-5.02-1.37l-.36-.21-3.83 1 1.02-3.73-.24-.38a9.82 9.82 0 0 1-1.51-5.18c0-5.46 4.45-9.9 9.92-9.9a9.84 9.84 0 0 1 7.01 2.9 9.83 9.83 0 0 1 2.9 7.01c0 5.46-4.45 9.9-9.9 9.9Zm5.44-7.41c-.3-.15-1.77-.87-2.05-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.96 1.17-.18.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.46-.88-.78-1.47-1.74-1.64-2.04-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.03-.53-.07-.15-.68-1.63-.93-2.23-.24-.58-.49-.5-.68-.51h-.58c-.2 0-.53.07-.8.37-.28.3-1.06 1.04-1.06 2.53 0 1.48 1.08 2.91 1.23 3.11.15.2 2.12 3.23 5.14 4.53.72.31 1.28.5 1.72.64.72.23 1.37.2 1.88.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.08-.12-.28-.2-.58-.35Z"/>
+      </svg>
+      Chat with us on WhatsApp
+    </a>
+
+    <div class="ams-support-note">
+      Alibaba Merchant Store Customer Care
+    </div>
+  </div>
+</div>
+
+<button id="ams-support-button" type="button"
+        onclick="document.getElementById('ams-support-panel').classList.toggle('ams-open')">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 14v-3a9 9 0 0 1 18 0v3"/>
+    <path d="M3 13h3v7H5a2 2 0 0 1-2-2v-5Z"/>
+    <path d="M21 13h-3v7h1a2 2 0 0 0 2-2v-5Z"/>
+    <path d="M18 20a6 6 0 0 1-6 2"/>
+  </svg>
+  <span>Help & Support</span>
+</button>
+<!-- END ALIBABA CUSTOMER SUPPORT -->
+
+</body>
+</html>
